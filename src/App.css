@@ -28,6 +28,32 @@
   color: #61dafb;
 }
 
+/* height of the container */
+.map__container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.leaflet-container {
+  height: 90vh;
+  width: 90%;
+  border-radius: 2rem;
+}
+
+.cluster-icon {
+  background-color: #333;
+  height: 2em;
+  width: 2em;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  box-shadow: 0 0 0px 5px #fff;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
