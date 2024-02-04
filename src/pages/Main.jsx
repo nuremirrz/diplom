@@ -1,11 +1,10 @@
 import React from 'react'
-import Header from '../components/Header'
-import { sections } from '../data/sectionData';
+import Navbar from '../components/Navbar'
 
 const Main = () => {
   return (
     <>
-      <Header sections={sections}  title='Asem'/>
+      <Navbar/>
     </>
   )
 }
