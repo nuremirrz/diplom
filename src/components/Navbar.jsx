@@ -23,7 +23,7 @@ export default function ButtonAppBar() {
            
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'black', fontWeight: 'bold' }}>
-            Asem
+            AMS
           </Typography>          
           <Button>
             <Link to='/sign-in'>
