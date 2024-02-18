@@ -25,8 +25,8 @@ const MainMap = () => {
 
                 const transformedData = result.data.map(item => ({
             geocode: [
-                parseFloat(item.X_coordinate) || 0,  // Используем 0, если X_coordinate равен null
-                parseFloat(item.Y_coordinate) || 0,  // Используем 0, если Y_coordinate равен null
+                parseFloat(item.X_coordinate) || 0,  
+                parseFloat(item.Y_coordinate) || 0,  
             ],
             popUp: item.name,
             }));

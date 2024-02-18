@@ -9,6 +9,12 @@ import { Link } from 'react-router-dom';
 
 
 export default function ButtonAppBar() {
+  const defaultStyleForLink = {
+    color: 'black',
+    fontWeight: 'bold',
+    textDecoration: 'none',    
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ background: '#9ed7e6', boxShadow: 'none'}}>
@@ -22,11 +28,18 @@ export default function ButtonAppBar() {
           >
            
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'black', fontWeight: 'bold' }}>
-            AMS
-          </Typography>          
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1}}>
+            <Link to='/' style={defaultStyleForLink} >                    
+              AMS
+            </Link>
+          </Typography> 
           <Button>
-            <Link to='/sign-in'>
+            <Link to='/info' style={defaultStyleForLink}>
+                Info            
+            </Link>
+          </Button>         
+          <Button>
+            <Link to='/sign-in' style={defaultStyleForLink}>
                 Login            
             </Link>
             </Button>
