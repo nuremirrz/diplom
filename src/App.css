@@ -1,7 +1,11 @@
 .App {
   text-align: center;
 }
-
+/* style for website start */
+body {
+  background-color: #f4f4f4;
+}
+/* style for website end */
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -12,7 +16,9 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+h1{
+  text-align: center;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -33,11 +39,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 40px;
 }
 .leaflet-container {
   height: 90vh;
   width: 90%;
   border-radius: 2rem;
+  border: 2px solid #000;
 }
 
 .cluster-icon {

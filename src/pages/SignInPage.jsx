@@ -10,8 +10,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router-dom'; // Импортируем Link из react-router-dom
+import BackToMainMenuButton from '../components/BackToMainBtn';
 
-function SignIn() {
+function SignInPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -23,6 +24,7 @@ function SignIn() {
 
   return (
     <>  
+      <BackToMainMenuButton/>
       <ThemeProvider theme={createTheme()}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -85,4 +87,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default SignInPage;

@@ -1,20 +1,15 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-import Header from '../components/Header'
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
-const Info = ({params}) => {
-  const {year, district} = params;
-
+const Info = () => {
+  const { year, district } = useParams();
+  
   return (
-    <>
-      <Navbar />
-      <Header/>
-      {/* <div> */}
-        {/* <h2>Информация для {year} года в районе {district}</h2> */}
-        {/* Добавьте здесь ваш контент */}
-      {/* </div> */}
-    </>
-  )
-}
+    <div>
+      <h2>Информация для {year} года в районе {district}</h2>
+      {/* Здесь добавьте ваш контент на основе данных */}
+    </div>
+  );
+};
 
-export default Info
+export default Info;

@@ -1,0 +1,10 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MainPage from './pages/MainPage'
+import SignUpPage from './pages/SignUpPage';
+import SignInPage from './pages/SignInPage';
+import TliPage from './pages/TliPage';
+import TsiPage from './pages/TsiPage';
+import CalculatorPage from './pages/CalculatorPage';
+import InfoPage from './pages/InfoPage';
+
+export {Router, Routes, Route, MainPage, SignInPage, SignUpPage, TliPage, TsiPage, CalculatorPage, InfoPage}

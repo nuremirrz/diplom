@@ -31,7 +31,7 @@ const ChemicalFormulaInput = () => {
   };
 
   return (
-    <div>
+    <div style={{display: 'flex', justifyContent: 'center', gap: '30px', alignItems: 'center', flexDirection: 'column', margin: '30px'}}>
       <Typography variant="h6">Химические формулы</Typography>
       {formulas.map((formula) => (
         <div key={formula.id} style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>

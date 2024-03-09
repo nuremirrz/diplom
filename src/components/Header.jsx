@@ -54,7 +54,7 @@ const Header = () => {
       </FormControl>
 
       <Button variant="contained" onClick={navigateToPage}>
-        Перейти на страницу
+        Найти 
       </Button>
     </div>
   );
