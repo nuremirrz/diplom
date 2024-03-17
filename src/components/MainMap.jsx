@@ -4,6 +4,7 @@ import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon, divIcon, point } from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
+import { apiEndpoints, baseURL } from '../services/apiConfig';
 
 const MainMap = () => {
     const [markersData, setMarkersData] = useState([]);
@@ -13,7 +14,7 @@ const MainMap = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const apiUrl = 'https://gist.githubusercontent.com/Bektemir2001/f585a281f0196b0b3854909ff6695ef8/raw/a4e0a11b525a2d58f6148f772b7953d8c480e257/control_points.json';
+                const apiUrl = `${baseURL}${apiEndpoints.controlPoints}`;
                 const response = await fetch(apiUrl);
 
                 if (!response.ok) {
@@ -21,7 +22,7 @@ const MainMap = () => {
                 }
 
                 const result = await response.json();
-                console.log(result.data);
+                // console.log(result.data);
 
                 const transformedData = result.data.map(item => ({
             geocode: [

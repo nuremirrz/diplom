@@ -16,7 +16,7 @@ body {
     animation: App-logo-spin infinite 20s linear;
   }
 }
-h1{
+h1, h2, h3,h5 {
   text-align: center;
 }
 .App-header {

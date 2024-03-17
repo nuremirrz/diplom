@@ -1,39 +1,31 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { FormControl } from '@mui/base/FormControl';
-import { InputLabel,  MenuItem, Button, Select } from '@mui/material';
+import { InputLabel, MenuItem, Button, Select } from '@mui/material';
+import { baseURL } from '../services/apiConfig';
 
-
-const Header = () => {
-
-  const navigate = useNavigate();
-  const districts = ['Иссык-Куль', 'Тюп', 'Ак-Суу', 'Тон', 'Джети-Огуз'];
-  const [selectedYear, setSelectedYear] = useState(1990);
-  const [selectedDistrict, setSelectedDistrict] = useState(districts[0]);
-
+const Header = ({ selectedYear, selectedDistrict, onYearChange, onDistrictChange, onSearch }) => {
+  const [districts, setDistricts] = useState([]);
   const years = Array.from({ length: 35 }, (_, index) => 1990 + index);
 
+  useEffect(() => {
+    const fetchDistricts = async () => {
+      try {
+        const response = await fetch(`${baseURL}/get/districts/1`);
+        const data = await response.json();
+        setDistricts(data.data);
+      } catch (error) {
+        console.error('Ошибка при получении районов:', error);
+      }
+    };
 
-  const handleYearChange = (event) => {
-    const year = parseInt(event.target.value, 10);
-    setSelectedYear(year);
-  };
-
-  const handleDistrictChange = (event) => {
-    const district = event.target.value;
-    setSelectedDistrict(district);
-  };
-
-  const navigateToPage = () => {
-    const url = `/info/${selectedYear}/${selectedDistrict}`;
-    navigate(url);
-  };
+    fetchDistricts();
+  }, []);
 
   return (
-    <div style={{display: 'flex', justifyContent: 'space-evenly', gap: '30px', alignItems: 'center', margin: '30px'}}>
-      <FormControl >
+    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', gap: '30px', alignItems: 'center', margin: '30px' }}>
+      <FormControl>
         <InputLabel>Выберите год</InputLabel>
-        <Select value={selectedYear} onChange={handleYearChange}>
+        <Select value={selectedYear} onChange={onYearChange}>
           {years.map((year) => (
             <MenuItem key={year} value={year}>
               {year}
@@ -42,19 +34,19 @@ const Header = () => {
         </Select>
       </FormControl>
 
-      <FormControl >
+      <FormControl>
         <InputLabel>Выберите район</InputLabel>
-        <Select value={selectedDistrict} onChange={handleDistrictChange}>
+        <Select value={selectedDistrict} onChange={onDistrictChange}>
           {districts.map((district) => (
-            <MenuItem key={district} value={district}>
-              {district}
+            <MenuItem key={district.id} value={district.id}>
+              {district.name}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
 
-      <Button variant="contained" onClick={navigateToPage}>
-        Найти 
+      <Button variant="contained" onClick={onSearch}>
+        Найти
       </Button>
     </div>
   );

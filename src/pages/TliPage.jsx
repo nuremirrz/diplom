@@ -1,13 +1,14 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
-import Header from '../components/Header'
+import Tli from '../components/Tli';
 
 const TliPage = () => {
+
   return (
     <>
       <Navbar/>
-      <h1>TliPage</h1>
-      <Header/>
+      <h1>TLI Page</h1>      
+      <Tli />
     </>
   )
 }
