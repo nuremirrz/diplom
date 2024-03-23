@@ -6,6 +6,7 @@ export const apiEndpoints = {
   transformationIndicator: '/transformation/indicator',
   tsi: '/tsi',
   tli: '/tli',
+  dropDown: '/report/get/fields',
   // Добавь другие эндпойнты по аналогии
 };
 

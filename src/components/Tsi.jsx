@@ -39,9 +39,9 @@ const Tsi = () => {
       enabled: false
     },
     stroke: {
-      width: [5, 7, 5],
+      width: 3,
       curve: 'straight',
-      dashArray: [0, 8, 5]
+      // dashArray: [0, 8, 5]
     },
     title: {
       text: 'Page Statistics',

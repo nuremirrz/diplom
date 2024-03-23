@@ -24,7 +24,7 @@ const Tli = () => {
 
   const series = Object.keys(data.elements).map(key => ({
     name: key,
-    data: data.elements[key]
+    data: data.elements[key].map(value => parseFloat(value.toFixed(2)))
   }));
 
   const options = {
@@ -39,9 +39,9 @@ const Tli = () => {
       enabled: false
     },
     stroke: {
-      width: [5, 7, 5],
+      width: 3,
       curve: 'straight',
-      dashArray: [0, 8, 5]
+      // dashArray: [0, 8, 5 ]
     },
     title: {
       text: 'Page Statistics',

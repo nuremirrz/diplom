@@ -13,14 +13,10 @@ const InfoPage = () => {
   };
 
   const handleDistrictChange = (event) => {
-    const district = event.target.key;
+    const district = event.target.value;
     setSelectedDistrict(district);
   };
-
-  const handleSearch = () => {
-    console.log(selectedYear, selectedDistrict);
-  };
-
+ 
   return (
     <>
       <Navbar />
@@ -28,9 +24,7 @@ const InfoPage = () => {
         selectedYear={selectedYear}
         selectedDistrict={selectedDistrict}
         onYearChange={handleYearChange}
-        onDistrictChange={handleDistrictChange}
-        onSearch={handleSearch}
-        
+        onDistrictChange={handleDistrictChange}        
       />
       <Info
         selectedYear={selectedYear}

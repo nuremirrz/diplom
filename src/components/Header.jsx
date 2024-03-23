@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { FormControl } from '@mui/base/FormControl';
-import { InputLabel, MenuItem, Button, Select } from '@mui/material';
+import { InputLabel, MenuItem, Select } from '@mui/material';
 import { baseURL } from '../services/apiConfig';
 
-const Header = ({ selectedYear, selectedDistrict, onYearChange, onDistrictChange, onSearch }) => {
+const Header = ({ selectedYear, selectedDistrict, onYearChange, onDistrictChange}) => {
   const [districts, setDistricts] = useState([]);
   const years = Array.from({ length: 35 }, (_, index) => 1990 + index);
 
@@ -44,10 +44,6 @@ const Header = ({ selectedYear, selectedDistrict, onYearChange, onDistrictChange
           ))}
         </Select>
       </FormControl>
-
-      <Button variant="contained" onClick={onSearch}>
-        Найти
-      </Button>
     </div>
   );
 };

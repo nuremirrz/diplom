@@ -1,27 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
-import { baseURL } from '../services/apiConfig'; 
 
-const TransformationIndicator = ({selectedYear, selectedDistrict}) => {
+const TransformationIndicator = ({selectedYear, selectedDistrict, apiURL}) => {
   const [indicatorData, setIndicatorData] = useState(null);  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${baseURL}/transformation/indicator/${selectedYear}/${selectedDistrict}`);
+        const response = await fetch(`${apiURL}`);
+        // const response = await fetch(`${baseURL}/transformation/indicator/${selectedYear}/${selectedDistrict}`);
         const data = await response.json();
 
         // Обновление состояния компонента с полученными данными
         setIndicatorData(data.data);
       } catch (error) {
-        console.error('Ошибка при получении данных из API:', error);
-        // Обработка ошибок при неудачном запросе
+        console.error('Ошибка при получении данных из API:', error);        
       }
     };
 
     // Вызов функции для загрузки данных при монтировании компонента
     fetchData();
-  }, [selectedYear, selectedDistrict]); // Пустой массив зависимостей означает, что эффект выполнится только при монтировании компонента
+  }, [selectedYear, selectedDistrict, apiURL]); // Пустой массив зависимостей означает, что эффект выполнится только при монтировании компонента
 
   // Отображение данных в вашем компоненте
   return (

@@ -1,5 +1,5 @@
 import './App.css';
-import {Router, Routes, Route, MainPage, SignInPage, SignUpPage, TliPage, TsiPage, CalculatorPage, InfoPage} from './pages'
+import {Router, Routes, Route, MainPage, SignInPage, SignUpPage, TliPage, TsiPage, CalculatorPage, InfoPage, HydrochemicalPage} from './pages'
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/tli" element={<TliPage />} />
           <Route path="/tsi" element={<TsiPage />} />
+          <Route path="/hydrochem" element={<HydrochemicalPage />} />
           <Route path="/calculate" element={<CalculatorPage />} />
           <Route path="/info" element={<InfoPage />} />
         </Routes>

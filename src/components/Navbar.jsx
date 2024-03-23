@@ -58,7 +58,10 @@ const NavBar = () => {
               </Button> 
               <Button>
                 <Link to='/calculate' style={defaultStyleForLink}>Calculator</Link>
-              </Button>         
+              </Button> 
+              <Button>
+                <Link to='/hydrochem' style={defaultStyleForLink}>Parametres</Link>
+              </Button>        
               <Button>
                 <Link to='/sign-in' style={defaultStyleForLink}>Login</Link>
               </Button>
@@ -85,6 +88,9 @@ const NavBar = () => {
             </ListItem>
             <ListItem button>
               <ListItemText primary={<Link to='/calculate' style={defaultStyleForLink}>Calculator</Link>} />
+            </ListItem>
+            <ListItem button>
+              <ListItemText primary={<Link to='/hydrochem' style={defaultStyleForLink}>Parametres</Link>} />
             </ListItem>
             <ListItem button>
               <ListItemText primary={<Link to='/sign-in' style={defaultStyleForLink}>Login</Link>} />
