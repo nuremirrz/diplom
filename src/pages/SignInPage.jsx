@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,14 +14,24 @@ import { Link as RouterLink } from 'react-router-dom'; // Импортируем
 import BackToMainMenuButton from '../components/BackToMainBtn';
 
 function SignInPage() {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+
+    axios.post('http://80.72.180.130:8581/api/user/login', {
+      username,
+      password,
+    }).then((response) => {
+      if(response.status === 200) {
+        localStorage.setItem('authToken', response.data.token);
+        window.location.href = "/";
+      } else {
+        console.log('Ошибка авторизации')
+      }
+    })
+  }
 
   return (
     <>  
@@ -51,7 +62,9 @@ function SignInPage() {
                 label="Email"
                 name="email"
                 autoComplete="email"
+                value={username}
                 autoFocus
+                onChange={(event)=> setUsername(event.target.value)}
               />
               <TextField
                 margin="normal"
@@ -61,7 +74,9 @@ function SignInPage() {
                 label="Пароль"
                 type="password"
                 id="password"
+                value={password}
                 autoComplete="current-password"
+                onChange={(event)=> setPassword(event.target.value)}
               />
               <Button
                 type="submit"

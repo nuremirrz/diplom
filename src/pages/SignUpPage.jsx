@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,49 +13,33 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router-dom';
 import BackToMainMenuButton from '../components/BackToMainBtn';
 
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 const SignUpPage = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    email: '',
-    password: ''
-  });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    try {
-      const response = await fetch('http://80.72.180.130:8581/api/user/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-      
-      if (!response.ok) {
-        throw new Error('Registration failed');
+
+    axios.post("http://80.72.180.130:8581/api/user/register", {
+      name,
+      email,
+      password,
+    }).then((response) => {
+      if (response.status === 200) {
+        // Сохранить токен авторизации
+        localStorage.setItem("authToken", response.data.token);
+
+        // Перенаправить пользователя
+        window.location.href = "/";
+      } else {
+        // Отобразить ошибку
+        console.log("Ошибка регистрации");
       }
-
-      // Регистрация прошла успешно
-      const responseData = await response.json();
-      console.log('Registration successful:', responseData);
-
-      // Дополнительные действия, например, перенаправление на другую страницу
-    } catch (error) {
-      console.error('Registration error:', error.message);
-      // Обработка ошибки регистрации
-    }
+    });
   };
 
   return (
@@ -82,14 +67,14 @@ const SignUpPage = () => {
                 <Grid item xs={12}>
                   <TextField
                     autoComplete="given-name"
-                    name="firstName"
+                    name="name"
                     required
                     fullWidth
-                    id="firstName"
+                    id="name"
                     label="Имя"
                     autoFocus
-                    value={formData.firstName}
-                    onChange={handleChange}
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
                   />
                 </Grid>              
                 <Grid item xs={12}>
@@ -100,8 +85,8 @@ const SignUpPage = () => {
                     label="Email Адрес"
                     name="email"
                     autoComplete="email"
-                    value={formData.email}
-                    onChange={handleChange}
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -113,8 +98,8 @@ const SignUpPage = () => {
                     type="password"
                     id="password"
                     autoComplete="new-password"
-                    value={formData.password}
-                    onChange={handleChange}
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
                   />
                 </Grid>              
               </Grid>

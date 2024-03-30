@@ -29,7 +29,7 @@ const InfoPage = () => {
       <Info
         selectedYear={selectedYear}
         selectedDistrict={selectedDistrict}        
-      />      
+      />   
     </>
   )
 }
