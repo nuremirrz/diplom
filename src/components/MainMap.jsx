@@ -25,14 +25,14 @@ const MainMap = () => {
                 // console.log(result.data);
 
                 const transformedData = result.data.map(item => ({
-            geocode: [
-                parseFloat(item.X_coordinate) || 0,  
-                parseFloat(item.Y_coordinate) || 0,  
-            ],
-            popUp: item.name,
-            }));
+                    geocode: [
+                        parseFloat(item.X_coordinate) || 0,
+                        parseFloat(item.Y_coordinate) || 0,
+                    ],
+                    popUp: item.name,
+                }));
 
-setMarkersData(transformedData);
+                setMarkersData(transformedData);
 
             } catch (error) {
                 setError(error.message);
@@ -79,17 +79,17 @@ setMarkersData(transformedData);
                     iconCreateFunction={createClusterCustomIcon}
                 >
                     {markersData.map((marker, index) => {
-    if (marker.geocode[0] === null || marker.geocode[1] === null) {
-        // Пропускаем маркер, если хотя бы одна из координат равна null
-        return null;
-    }
+                        if (marker.geocode[0] === null || marker.geocode[1] === null) {
+                            // Пропускаем маркер, если хотя бы одна из координат равна null
+                            return null;
+                        }
 
-    return (
-        <Marker key={index} position={marker.geocode} icon={customIcon}>
-            <Popup>{marker.popUp}</Popup>
-        </Marker>
-    );
-})}
+                        return (
+                            <Marker key={index} position={marker.geocode} icon={customIcon}>
+                                <Popup>{marker.popUp}</Popup>
+                            </Marker>
+                        );
+                    })}
 
                 </MarkerClusterGroup>
             </MapContainer>

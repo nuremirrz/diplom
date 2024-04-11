@@ -10,28 +10,38 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link as RouterLink } from 'react-router-dom'; // Импортируем Link из react-router-dom
+import { Link as RouterLink } from 'react-router-dom'; 
 import BackToMainMenuButton from '../components/BackToMainBtn';
 
 function SignInPage() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setError('');
+    setLoading(true);
 
-    axios.post('http://80.72.180.130:8581/api/user/login', {
-      username,
-      password,
-    }).then((response) => {
-      if(response.status === 200) {
+    try {
+      const response = await axios.post('http://80.72.180.130:8581/api/user/login', {
+        username,
+        password,
+      });
+
+      if (response.status === 200) {
         localStorage.setItem('authToken', response.data.token);
         window.location.href = "/";
       } else {
-        console.log('Ошибка авторизации')
+        setError('Ошибка авторизации');
       }
-    })
-  }
+    } catch (error) {
+      setError('Ошибка при отправке запроса');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>  
@@ -78,17 +88,18 @@ function SignInPage() {
                 autoComplete="current-password"
                 onChange={(event)=> setPassword(event.target.value)}
               />
+              {error && <Typography color="error">{error}</Typography>}
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                disabled={loading}
               >
-                Войти
+                {loading ? 'Вход...' : 'Войти'}
               </Button>
               <Grid container>                
                 <Grid item>
-                  {/* Используем RouterLink из react-router-dom для правильной навигации */}
                   <RouterLink to="/sign-up" variant="body2">
                     {"Нет аккаунта? Зарегистрируйтесь"}
                   </RouterLink>

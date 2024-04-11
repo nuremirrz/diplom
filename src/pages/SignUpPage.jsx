@@ -20,31 +20,37 @@ const SignUpPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setError("");
+    setLoading(true);
 
-    axios.post("http://80.72.180.130:8581/api/user/register", {
-      name,
-      email,
-      password,
-    }).then((response) => {
+    try {
+      const response = await axios.post("http://80.72.180.130:8581/api/user/register", {
+        name,
+        email,
+        password,
+      });
+
       if (response.status === 200) {
-        // Сохранить токен авторизации
         localStorage.setItem("authToken", response.data.token);
-
-        // Перенаправить пользователя
         window.location.href = "/";
       } else {
-        // Отобразить ошибку
-        console.log("Ошибка регистрации");
+        setError("Ошибка регистрации");
       }
-    });
+    } catch (error) {
+      setError("Ошибка при отправке запроса");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
-      <BackToMainMenuButton/>
+      <BackToMainMenuButton />
       <ThemeProvider theme={defaultTheme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -103,13 +109,15 @@ const SignUpPage = () => {
                   />
                 </Grid>              
               </Grid>
+              {error && <Typography color="error">{error}</Typography>}
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                disabled={loading}
               >
-                Регистрация
+                {loading ? 'Регистрация...' : 'Регистрация'}
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item>

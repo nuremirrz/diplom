@@ -6,6 +6,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 const NavBar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Состояние аутентификации пользователя
   const isMobile = useMediaQuery('(max-width:600px)');
 
   const handleDrawerToggle = () => {
@@ -18,6 +19,14 @@ const NavBar = () => {
     textDecoration: 'none',    
   };
 
+  // Функция для выхода из аккаунта
+  const handleLogout = () => {
+    // Очищаем состояние аутентификации
+    setIsLoggedIn(false);
+    // Перенаправляем пользователя на страницу входа
+    window.location.href = "/sign-in";
+  };
+
   return (
     <Box sx={{flexGrow: 1}}>
       <AppBar position="static" sx={{ background: '#9ed7e6', boxShadow: 'none' }}>
@@ -28,7 +37,6 @@ const NavBar = () => {
             aria-label="menu"
             onClick={handleDrawerToggle}
             sx={{marginRight: '16px'}}
-            // className={classes.menuButton}
           >
             <MenuIcon />
           </IconButton>
@@ -61,10 +69,14 @@ const NavBar = () => {
               </Button> 
               <Button>
                 <Link to='/hydrochem' style={defaultStyleForLink}>Parametres</Link>
-              </Button>        
-              <Button>
-                <Link to='/sign-in' style={defaultStyleForLink}>Login</Link>
-              </Button>
+              </Button> 
+              {isLoggedIn ? (
+                <Button onClick={handleLogout}>Logout</Button>
+              ) : (
+                <Button>
+                  <Link to='/sign-in' style={defaultStyleForLink}>Login</Link>
+                </Button>
+              )}
             </>
           )}
         </Toolbar>
@@ -92,9 +104,15 @@ const NavBar = () => {
             <ListItem button>
               <ListItemText primary={<Link to='/hydrochem' style={defaultStyleForLink}>Parametres</Link>} />
             </ListItem>
-            <ListItem button>
-              <ListItemText primary={<Link to='/sign-in' style={defaultStyleForLink}>Login</Link>} />
-            </ListItem>
+            {isLoggedIn ? (
+              <ListItem button onClick={handleLogout}>
+                <ListItemText primary="Logout" />
+              </ListItem>
+            ) : (
+              <ListItem button>
+                <ListItemText primary={<Link to='/sign-in' style={defaultStyleForLink}>Login</Link>} />
+              </ListItem>
+            )}
           </List>
         </div>
       </Drawer>

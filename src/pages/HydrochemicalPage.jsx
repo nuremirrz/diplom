@@ -10,11 +10,18 @@ const HydrochemicalPage = () => {
     setChemicalData(data);
   };
 
+  const [selectedYear, setSelectedYear] = useState(2022);
+  
+  const handleYearChange = (event) => {
+    const year = parseInt(event.target.value, 10);
+    setSelectedYear(year);
+  };
+
   return (
     <>
         <NavBar/>
         <NestedDropdown onDataUpdate={handleDataUpdate} />
-        <ChemicCart chemicalData={chemicalData} />
+        <ChemicCart chemicalData={chemicalData} selectedYear={selectedYear} />
     </>
   )
 }

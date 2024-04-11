@@ -35,7 +35,7 @@ h1, h2, h3,h5 {
 }
 
 /* height of the container */
-.map__container{
+.map__container, .chem_container{
   display: flex;
   justify-content: center;
   align-items: center;
