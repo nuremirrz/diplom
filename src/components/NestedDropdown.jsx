@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FormControl } from '@mui/base/FormControl';
-import { InputLabel, MenuItem, Select } from '@mui/material';
+import { InputLabel, MenuItem, Select, Button } from '@mui/material';
 
-const NestedDropdown = () => {
-  const [options, setOptions] = useState([1]);
+const NestedDropdown = ({ selectedYear, onYearChange, onOptionChange, onSubOptionChange, onButtonClick }) => {
+  const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState('');
   const [subOptions, setSubOptions] = useState([]);
   const [selectedSubOption, setSelectedSubOption] = useState('');
   const [loading, setLoading] = useState(true);
+
+  const years = Array.from({ length: 35 }, (_, index) => 1990 + index);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,10 +26,10 @@ const NestedDropdown = () => {
     fetchData();
   }, []);
 
-  const handleOptionChange = async (event) => {
+  const handleOptionChange = (event) => {
     const optionId = event.target.value;
     setSelectedOption(optionId);
-    setSelectedSubOption(''); // Reset selected sub-option when main option changes
+    setSelectedSubOption('');
 
     const selectedOptionData = options.find(option => option.field === optionId);
     if (selectedOptionData && selectedOptionData.children) {
@@ -38,11 +40,22 @@ const NestedDropdown = () => {
   };
 
   const handleSubOptionChange = (event) => {
-    setSelectedSubOption(event.target.value);
+    const subOptionName = event.target.value;
+    setSelectedSubOption(subOptionName);
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px', gap: '15px' }}>
+      <FormControl>
+        <InputLabel>Select year</InputLabel>
+        <Select value={selectedYear} onChange={(event) => onYearChange(event.target.value)}>
+          {years.map((year) => (
+            <MenuItem key={year} value={year}>
+              {year}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <FormControl>
         <InputLabel>Select an option</InputLabel>
         <Select
@@ -69,13 +82,14 @@ const NestedDropdown = () => {
             onChange={handleSubOptionChange}
           >
             {subOptions.map((subOption) => (
-              <MenuItem key={subOption.id} value={subOption.name}>
+              <MenuItem key={subOption.id} value={subOption}>
                 <span dangerouslySetInnerHTML={{ __html: subOption.name }} />
               </MenuItem>
             ))}
           </Select>
         </FormControl>
       )}
+      <Button onClick={onButtonClick}>Search</Button>
     </div>
   );
 };

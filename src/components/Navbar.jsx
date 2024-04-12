@@ -23,8 +23,8 @@ const NavBar = () => {
   const handleLogout = () => {
     // Очищаем состояние аутентификации
     setIsLoggedIn(false);
-    // Перенаправляем пользователя на страницу входа
-    window.location.href = "/sign-in";
+    // Перенаправляем пользователя на главную страницу
+    window.location.href = "/";
   };
 
   return (
