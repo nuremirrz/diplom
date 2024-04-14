@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 
-const ChemicCart = ({ isButtonClicked, selectedYear, selectedOption, additionalParams }) => {
+const ChemicCart = ({ isButtonClicked, selectedYear, selectedOption, selectedSubOption }) => {
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -9,16 +9,12 @@ const ChemicCart = ({ isButtonClicked, selectedYear, selectedOption, additionalP
     if (isButtonClicked) {
       const fetchData = async () => {
         try {
-          let postData = {
+          const postData = {
             year: selectedYear,
-            table_field: selectedOption
+            table_field: selectedOption,
+            ...(selectedSubOption && { children: selectedSubOption.id })
           };
-  
-          if (additionalParams) {
-            postData = { ...postData, ...additionalParams };
-            console.log(postData);
-          }
-  
+      
           const response = await fetch('http://80.72.180.130:8581/api/report/get/report', {
             method: 'POST',
             headers: {
@@ -26,11 +22,11 @@ const ChemicCart = ({ isButtonClicked, selectedYear, selectedOption, additionalP
             },
             body: JSON.stringify(postData)
           });
-  
+      
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
-  
+      
           const responseData = await response.json();
           setResponse(responseData);
           setLoading(false);
@@ -42,7 +38,7 @@ const ChemicCart = ({ isButtonClicked, selectedYear, selectedOption, additionalP
   
       fetchData();
     }
-  }, [isButtonClicked, selectedYear, selectedOption, additionalParams]);
+  }, [isButtonClicked, selectedYear, selectedOption, selectedSubOption]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -56,22 +52,22 @@ const ChemicCart = ({ isButtonClicked, selectedYear, selectedOption, additionalP
 
   const chartSeries = [
     {
-      name: 'Контрольные точки',
-      data: control_points
+      name: 'Items',
+      data: items
     }
   ];
 
   const chartOptions = {
     chart: {
-      id: 'line-chart',
+      id: 'bar-chart',
       toolbar: {
         show: false
       }
     },
     xaxis: {
-      categories: items,
+      categories: control_points,
       title: {
-        text: 'Items',
+        text: 'Control Points',
         style: {
           fontSize: '14px',
           fontWeight: 'bold',
@@ -81,15 +77,21 @@ const ChemicCart = ({ isButtonClicked, selectedYear, selectedOption, additionalP
     },
     yaxis: {
       title: {
-        text: 'Контрольные точки',
+        text: 'Items',
         style: {
           fontSize: '14px',
           fontWeight: 'bold',
           fontFamily: 'Arial, sans-serif'
         }
       }
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false
+      }
     }
   };
+
 
   return (
     <div>
