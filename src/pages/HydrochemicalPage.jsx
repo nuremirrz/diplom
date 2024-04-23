@@ -12,6 +12,8 @@ const HydrochemicalPage = () => {
   const [pdkDown, setPdkDown] = useState(null);  
   const [tableField, setTableField] = useState(null);  
   const [relatedField, setRelatedField] = useState(null);
+  const [pdkUpForSubOption, setPdkUpForSubOption] = useState(null);
+  const [pdkDownForSubOption, setPdkDownForSubOption] = useState(null);
 
   const handleYearChange = (year) => {
     setSelectedYear(year);
@@ -25,14 +27,16 @@ const HydrochemicalPage = () => {
     setPdkDown(pdk_down);
   };
 
-  const handleSubOptionChange = (subOptionName) => {
+  const handleSubOptionChange = (subOptionName, pdk_up, pdk_down) => {
     setSelectedSubOption(subOptionName);
+    setPdkUpForSubOption(pdk_up);
+    setPdkDownForSubOption(pdk_down);
   };
 
   const handleButtonClick = () => {
     setIsSearchClicked(true);
   };
-
+  
   return (
     <>
       <NavBar />
@@ -52,8 +56,10 @@ const HydrochemicalPage = () => {
         tableField={tableField}
         isButtonClicked={isSearchClicked} 
         pdkUp={pdkUp}
-        pdkDown={pdkDown}  
-        relatedField={relatedField}            
+        pdkDown={pdkDown}     
+        relatedField={relatedField}  
+        pdkUpForSubOption={pdkUpForSubOption}
+        pdkDownForSubOption={pdkDownForSubOption}          
       />
     </>
   );

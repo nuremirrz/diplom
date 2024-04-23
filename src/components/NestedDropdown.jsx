@@ -58,9 +58,17 @@ const NestedDropdown = ({ selectedYear, onYearChange, onOptionChange, onSubOptio
   };
 
   const handleSubOptionChange = (event) => {
-    const subOptionName = event.target.value;
-    setSelectedSubOption(subOptionName);
-    onSubOptionChange(subOptionName);
+    const subOptionId = event.target.value.id;
+    const selectedSubOptionData = subOptions.find(subOption => subOption.id === subOptionId);
+    
+    
+    setSelectedSubOption(selectedSubOptionData);
+    
+    // Передаем значения pdkUp и pdkDown для выбранной подопции, если они определены
+    const pdkUpForSubOption = selectedSubOptionData ? selectedSubOptionData.pdk_up : null;
+    const pdkDownForSubOption = selectedSubOptionData ? selectedSubOptionData.pdk_down : null;
+    // Передаем значения pdkUp и pdkDown для выбранной опции
+    onSubOptionChange(selectedSubOptionData, pdkUpForSubOption, pdkDownForSubOption);
   };
 
   const handleButtonClick = () => {
