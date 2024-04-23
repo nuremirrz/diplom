@@ -48,8 +48,9 @@ const CalculateChart = ({ selectedYear, selectedDistrict }) => {
 
     const { distances, items } = response.data;
     
-    const formattedItems = items.map(item => parseFloat(item));
+    // const formattedItems = items.map(item => parseFloat(item));
     // const formattedItems = items;
+    const formattedItems = Array.isArray(items) ? items.map(item => parseFloat(item)) : [];
 
     const chartSeries = [
         {

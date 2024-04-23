@@ -1,3 +1,4 @@
+// NestedDropdown.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FormControl } from '@mui/base/FormControl';
@@ -26,25 +27,44 @@ const NestedDropdown = ({ selectedYear, onYearChange, onOptionChange, onSubOptio
     fetchData();
   }, []);
 
+  // const handleOptionChange = (event) => {
+  //   const optionId = event.target.value;
+  //   setSelectedOption(optionId);
+  //   setSelectedSubOption('');
+
+  //   const selectedOptionData = options.find(option => option.field === optionId);
+  //   const { pdk_up, pdk_dawn } = selectedOptionData || {};
+  //   if (selectedOptionData && selectedOptionData.children) {
+  //     setSubOptions(selectedOptionData.children);
+  //   } else {
+  //     setSubOptions([]);
+  //   }
+  //   console.log(selectedOptionData);
+  //   onOptionChange( pdk_up, pdk_dawn);
+  // };
+
   const handleOptionChange = (event) => {
     const optionId = event.target.value;
     setSelectedOption(optionId);
-    setSelectedSubOption('');
-
+  
     const selectedOptionData = options.find(option => option.field === optionId);
+    const { pdk_up, pdk_dawn, table_field, related_field } = selectedOptionData || {};
     if (selectedOptionData && selectedOptionData.children) {
       setSubOptions(selectedOptionData.children);
     } else {
       setSubOptions([]);
     }
-
-    onOptionChange(optionId);
+    onOptionChange(optionId, table_field, related_field, pdk_up, pdk_dawn);
   };
 
   const handleSubOptionChange = (event) => {
     const subOptionName = event.target.value;
     setSelectedSubOption(subOptionName);
     onSubOptionChange(subOptionName);
+  };
+
+  const handleButtonClick = () => {
+    onButtonClick();
   };
 
   return (
@@ -92,7 +112,7 @@ const NestedDropdown = ({ selectedYear, onYearChange, onOptionChange, onSubOptio
           </Select>
         </FormControl>
       )}
-      <Button onClick={onButtonClick}>Search</Button>
+      <Button onClick={handleButtonClick}>Search</Button>
     </div>
   );
 };

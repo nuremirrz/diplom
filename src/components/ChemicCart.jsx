@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 
-const ChemicCart = ({ isButtonClicked, selectedYear, selectedOption, selectedSubOption }) => {
+const ChemicCart = ({ isButtonClicked, selectedYear, selectedOption, selectedSubOption, pdkUp, pdkDown, tableField, relatedField}) => {
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -9,12 +9,24 @@ const ChemicCart = ({ isButtonClicked, selectedYear, selectedOption, selectedSub
     if (isButtonClicked) {
       const fetchData = async () => {
         try {
+          // const postData = {
+          //   year: selectedYear,
+          //   table_field: tableField,
+          //   ...(selectedSubOption && { children: selectedSubOption.id })
+          // };
+          
           const postData = {
             year: selectedYear,
-            table_field: selectedOption,
-            ...(selectedSubOption && { children: selectedSubOption.id })
+            table_field: tableField
           };
       
+          // Проверяем наличие подопций
+          if (selectedSubOption) {
+            postData.children = selectedSubOption.id;
+            postData.related_field = relatedField;
+          }
+
+          console.log(postData);
           const response = await fetch('http://80.72.180.130:8581/api/report/get/report', {
             method: 'POST',
             headers: {
@@ -38,8 +50,9 @@ const ChemicCart = ({ isButtonClicked, selectedYear, selectedOption, selectedSub
   
       fetchData();
     }
-  }, [isButtonClicked, selectedYear, selectedOption, selectedSubOption]);
+  }, [isButtonClicked, selectedYear, selectedOption, selectedSubOption, tableField, relatedField]);
 
+  
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -75,7 +88,7 @@ const ChemicCart = ({ isButtonClicked, selectedYear, selectedOption, selectedSub
         }
       }
     },
-    yaxis: {
+    yaxis: {     
       title: {
         text: 'Items',
         style: {
@@ -89,16 +102,33 @@ const ChemicCart = ({ isButtonClicked, selectedYear, selectedOption, selectedSub
       bar: {
         horizontal: false
       }
-    }
+    },
+    // Добавление допустимых диапазонов в легенду графика
+    legend: {
+      labels: {
+        fontColor: '#000',
+        fontSize: 12,
+      },
+      onClick: null, // чтобы отключить обработчик клика на легенде
+      position: 'top',
+      display: true,
+      fullWidth: true,
+      reverse: false,
+      text: [`PDK Up: ${pdkUp}`, `PDK Down: ${pdkDown}`],
+    },
+    
   };
-
 
   return (
     <div>
-      <h2>Содержимое </h2>
+      <h2>График</h2>
       <div className="chem_container">
         <Chart type='line' width={1200} height={550} series={chartSeries} options={chartOptions} />
-      </div>      
+      </div>  
+      <div >
+        <h3>Верхнее допустимое значение (pdkUp): {pdkUp}</h3>
+        <h3>Нижнее допустимое значение (pdkDown): {pdkDown}</h3>
+      </div>    
     </div>
   );
 };

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import ReactApexChart from 'react-apexcharts';
 
-const Tli = () => {
+const Tli = ({selectedYear, selectedDistrict }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://80.72.180.130:8581/api/tli/2022/1');
+        const response = await fetch(`http://80.72.180.130:8581/api/tli/${selectedYear}/${selectedDistrict}`);
         const jsonData = await response.json();
         setData(jsonData);
       } catch (error) {
@@ -16,7 +16,7 @@ const Tli = () => {
     };
 
     fetchData();
-  }, []);
+  }, [selectedYear, selectedDistrict]);
 
   if (!data) {
     return <div>Loading...</div>;

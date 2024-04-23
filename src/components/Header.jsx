@@ -24,7 +24,7 @@ const Header = ({ selectedYear, selectedDistrict, onYearChange, onDistrictChange
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', gap: '30px', alignItems: 'center', margin: '30px' }}>
       <FormControl>
-        <InputLabel>Выберите год</InputLabel>
+        <InputLabel>Select Year</InputLabel>
         <Select value={selectedYear} onChange={onYearChange}>
           {years.map((year) => (
             <MenuItem key={year} value={year}>
@@ -35,7 +35,7 @@ const Header = ({ selectedYear, selectedDistrict, onYearChange, onDistrictChange
       </FormControl>
 
       <FormControl>
-        <InputLabel>Выберите район</InputLabel>
+        <InputLabel>Select District</InputLabel>
         <Select value={selectedDistrict} onChange={onDistrictChange}>
           {districts.map((district) => (
             <MenuItem key={district.id} value={district.id}>

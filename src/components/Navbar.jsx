@@ -74,7 +74,7 @@ const NavBar = () => {
                 <Button onClick={handleLogout}>Logout</Button>
               ) : (
                 <Button>
-                  <Link to='/sign-in' style={defaultStyleForLink}>Login</Link>
+                  <Link to='http://80.72.180.130:8581/auth/operator/login' target='_blank' style={defaultStyleForLink}>Login</Link>                  
                 </Button>
               )}
             </>
@@ -110,8 +110,8 @@ const NavBar = () => {
               </ListItem>
             ) : (
               <ListItem button>
-                <ListItemText primary={<Link to='/sign-in' style={defaultStyleForLink}>Login</Link>} />
-              </ListItem>
+              <ListItemText primary={<Link to='http://80.72.180.130:8581/auth/operator/login' target='_blank' style={defaultStyleForLink}>Login</Link>} />
+            </ListItem>
             )}
           </List>
         </div>

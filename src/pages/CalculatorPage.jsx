@@ -27,7 +27,10 @@ const CalculatorPage = () => {
         onYearChange={handleYearChange}
         onDistrictChange={handleDistrictChange}
       />
-      <CalculateChart selectedYear={selectedYear} selectedDistrict={selectedDistrict} />
+      <CalculateChart 
+        selectedYear={selectedYear} 
+        selectedDistrict={selectedDistrict} 
+      />
       <SvCalculator/>
     </>
   )
