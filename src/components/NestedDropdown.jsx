@@ -37,11 +37,14 @@ const NestedDropdown = ({ selectedYear, onYearChange, onOptionChange, onSubOptio
     } else {
       setSubOptions([]);
     }
+
+    onOptionChange(optionId);
   };
 
   const handleSubOptionChange = (event) => {
     const subOptionName = event.target.value;
     setSelectedSubOption(subOptionName);
+    onSubOptionChange(subOptionName);
   };
 
   return (

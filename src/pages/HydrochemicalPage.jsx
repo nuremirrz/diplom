@@ -7,20 +7,18 @@ const HydrochemicalPage = () => {
   const [selectedYear, setSelectedYear] = useState(2022);
   const [selectedOption, setSelectedOption] = useState('');
   const [selectedSubOption, setSelectedSubOption] = useState('');
-  const [additionalParams, setAdditionalParams] = useState(null);
   const [isSearchClicked, setIsSearchClicked] = useState(false);
 
   const handleYearChange = (year) => {
     setSelectedYear(year);
   };
 
-  const handleOptionChange = (optionId, params, year) => {
+  const handleOptionChange = (optionId) => {
     setSelectedOption(optionId);
-    setAdditionalParams({...params, year});
   };
 
-  const handleSubOptionChange = (subOption) => {
-    setSelectedSubOption(subOption);
+  const handleSubOptionChange = (subOptionName) => {
+    setSelectedSubOption(subOptionName);
   };
 
   const handleButtonClick = () => {
@@ -34,7 +32,6 @@ const HydrochemicalPage = () => {
         onYearChange={handleYearChange}
         onOptionChange={handleOptionChange}
         onSubOptionChange={handleSubOptionChange}
-        selectedYear={selectedYear}
         isSearchClicked={isSearchClicked}
         onButtonClick={handleButtonClick}
       />
@@ -42,8 +39,7 @@ const HydrochemicalPage = () => {
         selectedYear={selectedYear}
         selectedOption={selectedOption}
         selectedSubOption={selectedSubOption}
-        additionalParams={additionalParams}
-        isButtonClicked={isSearchClicked} // Можно использовать isSearchClicked вместо isButtonClicked
+        isButtonClicked={isSearchClicked} 
       />
     </>
   );
