@@ -7,8 +7,7 @@ const TliPage = () => {
   const [selectedYear, setSelectedYear] = useState(2022);
   const [selectedDistrict, setSelectedDistrict] = useState(1);
 
-  const handleYearChange = (event) => {
-    const year = parseInt(event.target.value, 10);
+  const handleYearChange = (year, event) => {
     setSelectedYear(year);
   };
 
@@ -19,12 +18,15 @@ const TliPage = () => {
 
   return (
     <>
-      <Navbar/>
+      <Navbar
+      selectedYear={selectedYear}
+      onYearChange={handleYearChange}
+      
+      />
       <h1>TLI Page</h1>   
+      
       <DistAndYearChooser      
-        selectedYear={selectedYear}
         selectedDistrict={selectedDistrict}
-        onYearChange={handleYearChange}
         onDistrictChange={handleDistrictChange}
       />   
       <Tli 

@@ -7,8 +7,7 @@ const InfoPage = () => {
   const [selectedYear, setSelectedYear] = useState(2022);
   const [selectedDistrict, setSelectedDistrict] = useState(1);
 
-  const handleYearChange = (event) => {
-    const year = parseInt(event.target.value, 10);
+  const handleYearChange = (year, event) => {
     setSelectedYear(year);
   };
 
@@ -19,12 +18,15 @@ const InfoPage = () => {
  
   return (
     <>
-      <Navbar />
-      <Header
+      <Navbar
         selectedYear={selectedYear}
+        onYearChange={handleYearChange}      
+      />
+      <Header
         selectedDistrict={selectedDistrict}
-        onYearChange={handleYearChange}
-        onDistrictChange={handleDistrictChange}        
+        onDistrictChange={handleDistrictChange}  
+        // selectedYear={selectedYear}
+        // onYearChange={handleYearChange}      
       />
       <Info
         selectedYear={selectedYear}

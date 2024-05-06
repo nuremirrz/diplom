@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Typography, Box } from '@mui/material';
 
-const SvCalculator = () => {
+const SvCalculator = ({onCostChange}) => {
   const [spki, setSpki] = useState('');
   const [su, setSu] = useState('');
   const [kvk, setKvk] = useState('');
@@ -12,6 +12,7 @@ const SvCalculator = () => {
   const calculateSv = () => {
     const sv = (parseFloat(spki) + (parseFloat(su) * parseFloat(kvk))) * parseFloat(k) * parseFloat(kind);
     setResult(sv);
+    onCostChange(sv);
   };
 
   return (

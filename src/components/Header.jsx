@@ -5,7 +5,7 @@ import { baseURL } from '../services/apiConfig';
 
 const Header = ({ selectedYear, selectedDistrict, onYearChange, onDistrictChange}) => {
   const [districts, setDistricts] = useState([]);
-  const years = Array.from({ length: 35 }, (_, index) => 1990 + index);
+  // const years = Array.from({ length: 35 }, (_, index) => 1990 + index);
 
   useEffect(() => {
     const fetchDistricts = async () => {
@@ -23,16 +23,16 @@ const Header = ({ selectedYear, selectedDistrict, onYearChange, onDistrictChange
 
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', gap: '30px', alignItems: 'center', margin: '30px' }}>
-      <FormControl>
+      {/* <FormControl>
         <InputLabel>Select Year</InputLabel>
-        <Select value={selectedYear} onChange={onYearChange}>
+        <Select value={selectedYear} onChange={onYearChange} MenuProps={{ PaperProps: { style: { maxHeight: 300 } } }}>
           {years.map((year) => (
             <MenuItem key={year} value={year}>
               {year}
             </MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControl> */}
 
       <FormControl>
         <InputLabel>Select District</InputLabel>

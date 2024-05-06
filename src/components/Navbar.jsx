@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { AppBar, Box, IconButton, Toolbar, Typography, Button, Drawer, List, ListItem, ListItemText, Divider } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, Typography, Button, Drawer, List, ListItem, ListItemText, Divider, Select, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-const NavBar = () => {
+const NavBar = ({ selectedYear, onYearChange }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Состояние аутентификации пользователя
   const isMobile = useMediaQuery('(max-width:600px)');
@@ -16,7 +16,7 @@ const NavBar = () => {
   const defaultStyleForLink = {
     color: 'black',
     fontWeight: 'bold',
-    textDecoration: 'none',    
+    textDecoration: 'none',
   };
 
   // Функция для выхода из аккаунта
@@ -27,8 +27,19 @@ const NavBar = () => {
     window.location.href = "/";
   };
 
+  // Генерация списка годов от 1990 до 2030
+  const handleYearChange = (event) => {
+    const year = parseInt(event.target.value, 10);
+    onYearChange(year, event); // Передаем и значение года, и объект события
+  };
+
+  const years = [];
+  for (let year = 1990; year <= 2030; year++) {
+    years.push(year);
+  }
+
   return (
-    <Box sx={{flexGrow: 1}}>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ background: '#9ed7e6', boxShadow: 'none' }}>
         <Toolbar>
           <IconButton
@@ -36,14 +47,29 @@ const NavBar = () => {
             color="inherit"
             aria-label="menu"
             onClick={handleDrawerToggle}
-            sx={{marginRight: '16px'}}
+            sx={{ marginRight: '16px' }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" sx={{flexGrow: 1}}>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
             <Link to='/' style={defaultStyleForLink}>AMS</Link>
-          </Typography> 
-
+          </Typography>
+          {/* Добавление выпадающего списка годов */}
+          <Select
+            value={selectedYear}
+            onChange={handleYearChange}
+            displayEmpty
+            inputProps={{ 'aria-label': 'select year' }}
+            MenuProps={{ PaperProps: { style: { maxHeight: 300 } } }}
+          >
+            <MenuItem value="" disabled>
+              Год
+            </MenuItem>
+            {years.map((year) => (
+              <MenuItem key={year} value={year}>{year}</MenuItem>
+            ))}
+          </Select>
+          {/* Конец выпадающего списка */}
           {isMobile ? (
             <IconButton
               edge="end"
@@ -57,24 +83,24 @@ const NavBar = () => {
             <>
               <Button>
                 <Link to='/info' style={defaultStyleForLink}>Info</Link>
-              </Button> 
+              </Button>
               <Button>
                 <Link to='/tli' style={defaultStyleForLink}>Tli</Link>
-              </Button> 
+              </Button>
               <Button>
                 <Link to='/tsi' style={defaultStyleForLink}>Tsi</Link>
-              </Button> 
+              </Button>
               <Button>
                 <Link to='/calculate' style={defaultStyleForLink}>Calculator</Link>
-              </Button> 
+              </Button>
               <Button>
                 <Link to='/hydrochem' style={defaultStyleForLink}>Parametres</Link>
-              </Button> 
+              </Button>
               {isLoggedIn ? (
                 <Button onClick={handleLogout}>Logout</Button>
               ) : (
                 <Button>
-                  <Link to='http://80.72.180.130:8581/auth/operator/login' target='_blank' style={defaultStyleForLink}>Login</Link>                  
+                  <Link to='http://80.72.180.130:8581/auth/operator/login' target='_blank' style={defaultStyleForLink}>Login</Link>
                 </Button>
               )}
             </>
@@ -83,7 +109,7 @@ const NavBar = () => {
       </AppBar>
 
       <Drawer anchor="left" open={mobileOpen} onClose={handleDrawerToggle}>
-        <div sx={{width: '250px'}}>
+        <div sx={{ width: '250px' }}>
           <List>
             <ListItem button>
               <ListItemText primary={<Link to='/' style={defaultStyleForLink}>AMS</Link>} />
@@ -110,8 +136,8 @@ const NavBar = () => {
               </ListItem>
             ) : (
               <ListItem button>
-              <ListItemText primary={<Link to='http://80.72.180.130:8581/auth/operator/login' target='_blank' style={defaultStyleForLink}>Login</Link>} />
-            </ListItem>
+                <ListItemText primary={<Link to='http://80.72.180.130:8581/auth/operator/login' target='_blank' style={defaultStyleForLink}>Login</Link>} />
+              </ListItem>
             )}
           </List>
         </div>

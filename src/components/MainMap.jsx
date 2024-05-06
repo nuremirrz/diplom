@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import "../App.css";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Icon, divIcon, point } from "leaflet";
-import MarkerClusterGroup from "react-leaflet-cluster";
+import { Icon } from "leaflet";
+// import MarkerClusterGroup from "react-leaflet-cluster";
 import { apiEndpoints, baseURL } from '../services/apiConfig';
 
 const MainMap = () => {
@@ -55,17 +55,17 @@ const MainMap = () => {
     // create custom icon
     const customIcon = new Icon({
         iconUrl: require("../img/placeholder.png"),
-        iconSize: [38, 38]
+        iconSize: [25, 25]
     });
 
     // custom cluster icon
-    const createClusterCustomIcon = function (cluster) {
-        return new divIcon({
-            html: `<span class="cluster-icon">${cluster.getChildCount()}</span>`,
-            className: "custom-marker-cluster",
-            iconSize: point(33, 33, true)
-        });
-    };
+    // const createClusterCustomIcon = function (cluster) {
+    //     return new divIcon({
+    //         html: `<span class="cluster-icon">${cluster.getChildCount()}</span>`,
+    //         className: "custom-marker-cluster",
+    //         iconSize: point(22, 22, true)
+    //     });
+    // };
 
     return (
         <div className="map__container">
@@ -74,10 +74,10 @@ const MainMap = () => {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <MarkerClusterGroup
+                {/* <MarkerClusterGroup
                     chunkedLoading
                     iconCreateFunction={createClusterCustomIcon}
-                >
+                > */}
                     {markersData.map((marker, index) => {
                         if (marker.geocode[0] === null || marker.geocode[1] === null) {
                             // Пропускаем маркер, если хотя бы одна из координат равна null
@@ -91,7 +91,7 @@ const MainMap = () => {
                         );
                     })}
 
-                </MarkerClusterGroup>
+                {/* </MarkerClusterGroup> */}
             </MapContainer>
         </div>
     );

@@ -1,17 +1,16 @@
-// NestedDropdown.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FormControl } from '@mui/base/FormControl';
-import { InputLabel, MenuItem, Select, Button } from '@mui/material';
+import { InputLabel, MenuItem, Select } from '@mui/material';
 
-const NestedDropdown = ({ selectedYear, onYearChange, onOptionChange, onSubOptionChange, onButtonClick }) => {
+const NestedDropdown = ({ onOptionChange, onSubOptionChange }) => {
   const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState('');
   const [subOptions, setSubOptions] = useState([]);
   const [selectedSubOption, setSelectedSubOption] = useState('');
   const [loading, setLoading] = useState(true);
 
-  const years = Array.from({ length: 35 }, (_, index) => 1990 + index);
+  // const years = Array.from({ length: 35 }, (_, index) => 1990 + index);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,22 +25,6 @@ const NestedDropdown = ({ selectedYear, onYearChange, onOptionChange, onSubOptio
 
     fetchData();
   }, []);
-
-  // const handleOptionChange = (event) => {
-  //   const optionId = event.target.value;
-  //   setSelectedOption(optionId);
-  //   setSelectedSubOption('');
-
-  //   const selectedOptionData = options.find(option => option.field === optionId);
-  //   const { pdk_up, pdk_dawn } = selectedOptionData || {};
-  //   if (selectedOptionData && selectedOptionData.children) {
-  //     setSubOptions(selectedOptionData.children);
-  //   } else {
-  //     setSubOptions([]);
-  //   }
-  //   console.log(selectedOptionData);
-  //   onOptionChange( pdk_up, pdk_dawn);
-  // };
 
   const handleOptionChange = (event) => {
     const optionId = event.target.value;
@@ -61,32 +44,16 @@ const NestedDropdown = ({ selectedYear, onYearChange, onOptionChange, onSubOptio
     const subOptionId = event.target.value.id;
     const selectedSubOptionData = subOptions.find(subOption => subOption.id === subOptionId);
     
-    
     setSelectedSubOption(selectedSubOptionData);
     
-    // Передаем значения pdkUp и pdkDown для выбранной подопции, если они определены
     const pdkUpForSubOption = selectedSubOptionData ? selectedSubOptionData.pdk_up : null;
-    const pdkDownForSubOption = selectedSubOptionData ? selectedSubOptionData.pdk_down : null;
-    // Передаем значения pdkUp и pdkDown для выбранной опции
+    const pdkDownForSubOption = selectedSubOptionData ? selectedSubOptionData.pdk_dawn : null;
     onSubOptionChange(selectedSubOptionData, pdkUpForSubOption, pdkDownForSubOption);
   };
 
-  const handleButtonClick = () => {
-    onButtonClick();
-  };
-
+  
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px', gap: '15px' }}>
-      <FormControl>
-        <InputLabel>Select year</InputLabel>
-        <Select value={selectedYear} onChange={(event) => onYearChange(event.target.value)}>
-          {years.map((year) => (
-            <MenuItem key={year} value={year}>
-              {year}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px', gap: '15px' }}>     
       <FormControl>
         <InputLabel>Select an option</InputLabel>
         <Select
@@ -120,7 +87,7 @@ const NestedDropdown = ({ selectedYear, onYearChange, onOptionChange, onSubOptio
           </Select>
         </FormControl>
       )}
-      <Button onClick={handleButtonClick}>Search</Button>
+      
     </div>
   );
 };

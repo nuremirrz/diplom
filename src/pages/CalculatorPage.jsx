@@ -7,9 +7,9 @@ import CalculateChart from '../components/CalculateChart';
 const CalculatorPage = () => {
   const [selectedYear, setSelectedYear] = useState(2022);
   const [selectedDistrict, setSelectedDistrict] = useState(1);
+  const [cost, setCost] = useState(18448000);
 
-  const handleYearChange = (event) => {
-    const year = parseInt(event.target.value, 10);
+  const handleYearChange = (year, event) => {
     setSelectedYear(year);
   };
 
@@ -18,20 +18,30 @@ const CalculatorPage = () => {
     setSelectedDistrict(district);
   };
   
+  const handleCostChange = (cost) => {
+    setCost(cost);
+    console.log(cost)
+  };
   return (
     <>
-      <Navbar/>
-      <Header
+      <Navbar
         selectedYear={selectedYear}
+        onYearChange={handleYearChange}      
+      />
+      <Header
         selectedDistrict={selectedDistrict}
-        onYearChange={handleYearChange}
         onDistrictChange={handleDistrictChange}
       />
-      <CalculateChart 
-        selectedYear={selectedYear} 
-        selectedDistrict={selectedDistrict} 
-      />
-      <SvCalculator/>
+      <div style={{ display: 'flex',  alignItems: 'center', justifyContent: 'center', gap: '30px'}}>
+        <CalculateChart 
+          selectedYear={selectedYear} 
+          selectedDistrict={selectedDistrict} 
+          cost={cost}
+        />
+        <SvCalculator
+          onCostChange={handleCostChange}
+        />
+      </div>
     </>
   )
 }

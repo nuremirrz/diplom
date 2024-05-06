@@ -7,7 +7,8 @@ const Tli = ({selectedYear, selectedDistrict }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://80.72.180.130:8581/api/tli/${selectedYear}/${selectedDistrict}`);
+        const response = await fetch(`http://80.72.180.130:8581/api/tli/${selectedYear}/${selectedDistrict}`);        
+        console.log(response);
         const jsonData = await response.json();
         setData(jsonData);
       } catch (error) {

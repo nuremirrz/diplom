@@ -39,19 +39,20 @@ h1, h2, h3,h5 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 40px;
+  margin: 30px;
 }
 .leaflet-container {
-  height: 90vh;
-  width: 90%;
-  border-radius: 2rem;
-  border: 2px solid #000;
+  margin-left: 0;
+  padding-left: 0;
+  height: 500px;
+  width: 850px;
+  border: 2px solid #b9b3b3;
 }
 
 .cluster-icon {
   background-color: #333;
-  height: 2em;
-  width: 2em;
+  height: 1em;
+  width: 1em;
   color: #fff;
   display: flex;
   align-items: center;

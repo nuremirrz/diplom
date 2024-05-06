@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 
-const CalculateChart = ({ selectedYear, selectedDistrict }) => {
+const CalculateChart = ({ selectedYear, selectedDistrict, cost }) => {
     const [response, setResponse] = useState(null);
     const [loading, setLoading] = useState(true);
     
     useEffect(() => {
         const postData = {
-            cost: 18448000,
+            cost,
             district: selectedDistrict,
             year: selectedYear.toString(),
         };
@@ -21,6 +21,7 @@ const CalculateChart = ({ selectedYear, selectedDistrict }) => {
                     },
                     body: JSON.stringify(postData)
                 });
+                console.log(postData);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -35,7 +36,7 @@ const CalculateChart = ({ selectedYear, selectedDistrict }) => {
         };
         
         fetchData();
-    }, [selectedYear, selectedDistrict]);
+    }, [selectedYear, selectedDistrict, cost]);
     
     if (loading) {
         return <p>Loading...</p>;
@@ -90,7 +91,7 @@ const CalculateChart = ({ selectedYear, selectedDistrict }) => {
     };
 
     return (
-        <Chart type='line' width={1200} height={550} series={chartSeries} options={chartOptions} />
+        <Chart type='line' width={700} height={550} series={chartSeries} options={chartOptions} />
     );
 };
 

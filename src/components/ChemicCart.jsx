@@ -1,55 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 
-const ChemicCart = ({ isButtonClicked, selectedYear, selectedOption, selectedSubOption, pdkUp, pdkDown, tableField, relatedField, pdkDownForSubOption, pdkUpForSubOption }) => {
+const ChemicCart = ({ selectedYear, selectedOption, selectedSubOption, pdkUp, pdkDown, tableField, relatedField, pdkDownForSubOption, pdkUpForSubOption }) => {
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (isButtonClicked) {
-      const fetchData = async () => {
-        try {
-          // const postData = {
-          //   year: selectedYear,
-          //   table_field: tableField,
-          //   ...(selectedSubOption && { children: selectedSubOption.id })
-          // };
+    const fetchData = async () => {
+      try {
+        // Создаем объект данных для отправки на сервер
+        const postData = {
+          year: selectedYear,
+          table_field: tableField
+        };
 
-          const postData = {
-            year: selectedYear,
-            table_field: tableField
-          };
-
-          // Проверяем наличие подопций
-          if (selectedSubOption) {
-            postData.children = selectedSubOption.id;
-            postData.related_field = relatedField;
-          }
-          
-          const response = await fetch('http://80.72.180.130:8581/api/report/get/report', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(postData)
-          });
-
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-
-          const responseData = await response.json();
-          setResponse(responseData);
-          setLoading(false);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-          setLoading(false);
+        // Если выбрана подопция, добавляем соответствующие данные в объект запроса
+        if (selectedSubOption) {
+          postData.children = selectedSubOption.id;
+          postData.related_field = relatedField;
         }
-      };
 
-      fetchData();
-    }
-  }, [isButtonClicked, selectedYear, selectedOption, selectedSubOption, tableField, relatedField]);
+        // Отправляем запрос на сервер
+        const response = await fetch('http://80.72.180.130:8581/api/report/get/report', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(postData)
+        });
+        console.log(postData)
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const responseData = await response.json();
+        setResponse(responseData);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchData(); // Вызываем функцию получения данных при изменении выбора
+  }, [selectedYear, selectedOption, selectedSubOption, tableField, relatedField]);
 
 
   if (loading) {
@@ -125,8 +119,14 @@ const ChemicCart = ({ isButtonClicked, selectedYear, selectedOption, selectedSub
         <Chart type='line' width={1200} height={550} series={chartSeries} options={chartOptions} />
       </div>
       <div>
-      <h3>Верхнее допустимое значение (pdkUp): {selectedSubOption ? (pdkUpForSubOption !== null ? pdkUpForSubOption : "Нет данных") : (pdkUp !== null ? pdkUp : "Нет данных")}</h3>
-        <h3>Нижнее допустимое значение (pdkDown): {selectedSubOption ? (pdkDownForSubOption !== null ? pdkDownForSubOption : "Нет данных") : (pdkDown !== null ? pdkDown : "Нет данных")}</h3>
+        <div>
+          <h3>(ПДК): {selectedSubOption ?
+            ((pdkUpForSubOption !== null ? pdkUpForSubOption : "Нет данных") +
+              (pdkDownForSubOption !== null ? (pdkDownForSubOption !== null ? ', ' + pdkDownForSubOption : '') : '')) :
+            ((pdkUp !== null ? pdkUp : "Нет данных") +
+              (pdkDown !== null ? (pdkDown !== null ? ', ' + pdkDown : '') : ''))}
+          </h3>
+        </div>
       </div>
     </div>
   );

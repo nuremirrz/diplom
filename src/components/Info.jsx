@@ -11,6 +11,7 @@ const Info = ({selectedYear, selectedDistrict}) => {
       try {
         // Используем значения selectedYear и selectedDistrict для формирования URL запроса
         const response = await fetch(`${baseURL}/transformation/indicator/${selectedYear}/${selectedDistrict}`);
+        console.log(response);
         const data = await response.json();
         setApiData(data.data);
       } catch (error) {

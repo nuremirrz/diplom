@@ -6,12 +6,10 @@ import DistAndYearChooser from '../components/DistAndYearChooser';
 const TsiPage = () => {
   const [selectedYear, setSelectedYear] = useState(2022);
   const [selectedDistrict, setSelectedDistrict] = useState(1);
-
-  const handleYearChange = (event) => {
-    const year = parseInt(event.target.value, 10);
+ 
+  const handleYearChange = (year, event) => {
     setSelectedYear(year);
   };
-
   const handleDistrictChange = (event) => {
     const district = event.target.value;
     setSelectedDistrict(district);
@@ -19,12 +17,14 @@ const TsiPage = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar 
+      selectedYear={selectedYear}
+      onYearChange={handleYearChange}
+      
+      />
       <h1>TSI Page</h1>  
       <DistAndYearChooser      
-        selectedYear={selectedYear}
         selectedDistrict={selectedDistrict}
-        onYearChange={handleYearChange}
         onDistrictChange={handleDistrictChange}
       />
       <Tsi

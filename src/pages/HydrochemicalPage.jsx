@@ -6,8 +6,7 @@ import ChemicCart from '../components/ChemicCart';
 const HydrochemicalPage = () => {
   const [selectedYear, setSelectedYear] = useState(2022);
   const [selectedOption, setSelectedOption] = useState('');
-  const [selectedSubOption, setSelectedSubOption] = useState('');
-  const [isSearchClicked, setIsSearchClicked] = useState(false);
+  const [selectedSubOption, setSelectedSubOption] = useState('');  
   const [pdkUp, setPdkUp] = useState(null);
   const [pdkDown, setPdkDown] = useState(null);  
   const [tableField, setTableField] = useState(null);  
@@ -33,19 +32,17 @@ const HydrochemicalPage = () => {
     setPdkDownForSubOption(pdk_down);
   };
 
-  const handleButtonClick = () => {
-    setIsSearchClicked(true);
-  };
-  
+    
   return (
     <>
-      <NavBar />
+      <NavBar 
+      selectedYear={selectedYear}
+      onYearChange={handleYearChange}
+      />
       <NestedDropdown
         onYearChange={handleYearChange}
         onOptionChange={handleOptionChange}
-        onSubOptionChange={handleSubOptionChange}
-        isSearchClicked={isSearchClicked}
-        onButtonClick={handleButtonClick}      
+        onSubOptionChange={handleSubOptionChange}                     
         pdkUp={pdkUp}
         pdkDown={pdkDown}         
       />
@@ -54,7 +51,7 @@ const HydrochemicalPage = () => {
         selectedOption={selectedOption}
         selectedSubOption={selectedSubOption}
         tableField={tableField}
-        isButtonClicked={isSearchClicked} 
+        
         pdkUp={pdkUp}
         pdkDown={pdkDown}     
         relatedField={relatedField}  
