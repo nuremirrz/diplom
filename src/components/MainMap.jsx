@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import "../App.css";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Tooltip } from 'react-leaflet';
 import { Icon } from "leaflet";
 // import MarkerClusterGroup from "react-leaflet-cluster";
 import { apiEndpoints, baseURL } from '../services/apiConfig';
 
-const MainMap = () => {
+const MainMap = ({ onMarkerClick }) => {
     const [markersData, setMarkersData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -25,6 +25,7 @@ const MainMap = () => {
                 // console.log(result.data);
 
                 const transformedData = result.data.map(item => ({
+                    id: item.id,
                     geocode: [
                         parseFloat(item.X_coordinate) || 0,
                         parseFloat(item.Y_coordinate) || 0,
@@ -52,9 +53,14 @@ const MainMap = () => {
         return <p>Произошла ошибка: {error}</p>;
     }
 
+    const handleMarkerClick = (id) => {
+        onMarkerClick(id);
+        console.log('Marker clicked', id)
+    };
+
     // create custom icon
     const customIcon = new Icon({
-        iconUrl: require("../img/placeholder.png"),
+        iconUrl: require("../img/place.png"),
         iconSize: [25, 25]
     });
 
@@ -68,7 +74,7 @@ const MainMap = () => {
     // };
 
     return (
-        <div className="map__container">
+        <div className="map__container" style={{ margin: "30px" }}>
             <MapContainer center={[42.44898219069362, 77.12837773897982]} zoom={9.2}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -85,8 +91,17 @@ const MainMap = () => {
                         }
 
                         return (
-                            <Marker key={index} position={marker.geocode} icon={customIcon}>
-                                <Popup>{marker.popUp}</Popup>
+                            <Marker
+                                key={index}
+                                position={marker.geocode}
+                                icon={customIcon}
+                                eventHandlers={{
+                                    mouseover: () => handleMarkerClick(marker.id)
+                                }}
+                            >
+                                <Tooltip direction="top" offset={[0, -20]} opacity={1} permanent>
+                                    {marker.popUp}
+                                </Tooltip>
                             </Marker>
                         );
                     })}

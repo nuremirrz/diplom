@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Tsi from '../components/Tsi';
+import Navbar from '../components/Navbar'
 import DistAndYearChooser from '../components/DistAndYearChooser';
+import Tli from '../components/Tli';
+import Tsi from '../components/Tsi';
 
-const TsiPage = () => {
+const TliTsiPage = () => {
   const [selectedYear, setSelectedYear] = useState(2022);
   const [selectedDistrict, setSelectedDistrict] = useState(1);
- 
+
   const handleYearChange = (year, event) => {
     setSelectedYear(year);
   };
+
   const handleDistrictChange = (event) => {
     const district = event.target.value;
     setSelectedDistrict(district);
@@ -17,22 +19,29 @@ const TsiPage = () => {
 
   return (
     <>
-      <Navbar 
+      <Navbar
       selectedYear={selectedYear}
       onYearChange={handleYearChange}
       
       />
-      <h1>TSI Page</h1>  
+      <h1>TLI/TSI Page</h1>   
+      
       <DistAndYearChooser      
         selectedDistrict={selectedDistrict}
         onDistrictChange={handleDistrictChange}
-      />
-      <Tsi
+      />   
+      <div style={{display: 'flex', justifyContent: 'center', margin: '30px'}}>
+        <Tli 
+          selectedYear={selectedYear}   
+          selectedDistrict={selectedDistrict} 
+        />
+        <Tsi
         selectedYear={selectedYear}   
         selectedDistrict={selectedDistrict}
-      />  
+        />
+      </div>
     </>
-  );
-};
+  )
+}
 
-export default TsiPage;
+export default TliTsiPage

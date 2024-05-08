@@ -39,25 +39,27 @@ const HydrochemicalPage = () => {
       selectedYear={selectedYear}
       onYearChange={handleYearChange}
       />
-      <NestedDropdown
-        onYearChange={handleYearChange}
-        onOptionChange={handleOptionChange}
-        onSubOptionChange={handleSubOptionChange}                     
-        pdkUp={pdkUp}
-        pdkDown={pdkDown}         
-      />
-      <ChemicCart
-        selectedYear={selectedYear}
-        selectedOption={selectedOption}
-        selectedSubOption={selectedSubOption}
-        tableField={tableField}
-        
-        pdkUp={pdkUp}
-        pdkDown={pdkDown}     
-        relatedField={relatedField}  
-        pdkUpForSubOption={pdkUpForSubOption}
-        pdkDownForSubOption={pdkDownForSubOption}          
-      />
+      <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+        <NestedDropdown
+          onYearChange={handleYearChange}
+          onOptionChange={handleOptionChange}
+          onSubOptionChange={handleSubOptionChange}                     
+          pdkUp={pdkUp}
+          pdkDown={pdkDown}         
+        />
+        <ChemicCart
+          selectedYear={selectedYear}
+          selectedOption={selectedOption}
+          selectedSubOption={selectedSubOption}
+          tableField={tableField}
+          
+          pdkUp={pdkUp}
+          pdkDown={pdkDown}     
+          relatedField={relatedField}  
+          pdkUpForSubOption={pdkUpForSubOption}
+          pdkDownForSubOption={pdkDownForSubOption}          
+        />
+      </div>
     </>
   );
 };

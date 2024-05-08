@@ -35,12 +35,12 @@ h1, h2, h3,h5 {
 }
 
 /* height of the container */
-.map__container, .chem_container{
+/* .map__container, .chem_container{
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 30px;
-}
+} */
 .leaflet-container {
   margin-left: 0;
   padding-left: 0;

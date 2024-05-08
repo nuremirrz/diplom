@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FormControl } from '@mui/base/FormControl';
-import { InputLabel, MenuItem, Select } from '@mui/material';
+import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 
 const NestedDropdown = ({ onOptionChange, onSubOptionChange }) => {
   const [options, setOptions] = useState([]);
@@ -9,8 +8,6 @@ const NestedDropdown = ({ onOptionChange, onSubOptionChange }) => {
   const [subOptions, setSubOptions] = useState([]);
   const [selectedSubOption, setSelectedSubOption] = useState('');
   const [loading, setLoading] = useState(true);
-
-  // const years = Array.from({ length: 35 }, (_, index) => 1990 + index);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,68 +23,65 @@ const NestedDropdown = ({ onOptionChange, onSubOptionChange }) => {
     fetchData();
   }, []);
 
-  const handleOptionChange = (event) => {
-    const optionId = event.target.value;
-    setSelectedOption(optionId);
-  
-    const selectedOptionData = options.find(option => option.field === optionId);
-    const { pdk_up, pdk_dawn, table_field, related_field } = selectedOptionData || {};
-    if (selectedOptionData && selectedOptionData.children) {
-      setSubOptions(selectedOptionData.children);
-    } else {
-      setSubOptions([]);
+  const handleOptionChange = (event, optionId) => {
+    if (optionId !== null) {
+      setSelectedOption(optionId);
+
+      const selectedOptionData = options.find(option => option.field === optionId);
+      const { pdk_up, pdk_dawn, table_field, related_field } = selectedOptionData || {};
+      setSubOptions(selectedOptionData?.children || []);
+      onOptionChange(optionId, table_field, related_field, pdk_up, pdk_dawn);
     }
-    onOptionChange(optionId, table_field, related_field, pdk_up, pdk_dawn);
   };
 
-  const handleSubOptionChange = (event) => {
-    const subOptionId = event.target.value.id;
-    const selectedSubOptionData = subOptions.find(subOption => subOption.id === subOptionId);
-    
-    setSelectedSubOption(selectedSubOptionData);
-    
-    const pdkUpForSubOption = selectedSubOptionData ? selectedSubOptionData.pdk_up : null;
-    const pdkDownForSubOption = selectedSubOptionData ? selectedSubOptionData.pdk_dawn : null;
-    onSubOptionChange(selectedSubOptionData, pdkUpForSubOption, pdkDownForSubOption);
+  const handleSubOptionChange = (event, subOptionId) => {
+    if (subOptionId !== null) {
+      const selectedSubOptionData = subOptions.find(subOption => subOption.id === subOptionId);
+      setSelectedSubOption(selectedSubOptionData);
+      const pdkUpForSubOption = selectedSubOptionData ? selectedSubOptionData.pdk_up : null;
+      const pdkDownForSubOption = selectedSubOptionData ? selectedSubOptionData.pdk_dawn : null;
+      onSubOptionChange(selectedSubOptionData, pdkUpForSubOption, pdkDownForSubOption);
+    }
   };
 
-  
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px', gap: '15px' }}>     
-      <FormControl>
-        <InputLabel>Select an option</InputLabel>
-        <Select
+    <div style={{ display: 'flex', justifyContent: 'start', margin: '30px', gap: '30px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <ToggleButtonGroup
           value={selectedOption}
+          exclusive
           onChange={handleOptionChange}
+          aria-label="select option"
+          orientation="vertical"
         >
           {loading ? (
-            <MenuItem disabled>Loading...</MenuItem>
+            <ToggleButton disabled>Loading...</ToggleButton>
           ) : (
-            <MenuItem value="">Select an option</MenuItem>
+            options.map((option) => (
+              <ToggleButton key={option.field} value={option.field} style={{ whiteSpace: 'normal' }}>
+                {option.field}
+              </ToggleButton>
+            ))
           )}
-          {options.map((option) => (
-            <MenuItem key={option.field} value={option.field}>
-              {option.field}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+        </ToggleButtonGroup>
+      </div>
       {subOptions.length > 0 && (
-        <FormControl>
-          <InputLabel>Select a sub-option</InputLabel>
-          <Select
-            value={selectedSubOption}
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <ToggleButtonGroup
+            value={selectedSubOption ? selectedSubOption.id : null}
+            exclusive
             onChange={handleSubOptionChange}
+            aria-label="select sub-option"
+            orientation="vertical"
           >
             {subOptions.map((subOption) => (
-              <MenuItem key={subOption.id} value={subOption}>
+              <ToggleButton key={subOption.id} value={subOption.id} style={{ whiteSpace: 'normal' }}>
                 <span dangerouslySetInnerHTML={{ __html: subOption.name }} />
-              </MenuItem>
+              </ToggleButton>
             ))}
-          </Select>
-        </FormControl>
+          </ToggleButtonGroup>
+        </div>
       )}
-      
     </div>
   );
 };

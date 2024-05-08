@@ -77,10 +77,10 @@ const Tsi = ({selectedYear, selectedDistrict }) => {
   };
 
   return (
-    <div>
-      <div id="chart">
-        <ReactApexChart options={options} series={series} type="line" height={350} />
-      </div>
+    <div style={{width: '100%', height: '100%'}}>
+      <h3>Tsi</h3>
+        <ReactApexChart options={options} series={series} type="line" height={450} />
+      
     </div>
   );
 };

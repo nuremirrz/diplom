@@ -85,11 +85,8 @@ const NavBar = ({ selectedYear, onYearChange }) => {
                 <Link to='/info' style={defaultStyleForLink}>Info</Link>
               </Button>
               <Button>
-                <Link to='/tli' style={defaultStyleForLink}>Tli</Link>
-              </Button>
-              <Button>
-                <Link to='/tsi' style={defaultStyleForLink}>Tsi</Link>
-              </Button>
+                <Link to='/tli-tsi' style={defaultStyleForLink}>Tli/Tsi</Link>
+              </Button>              
               <Button>
                 <Link to='/calculate' style={defaultStyleForLink}>Calculator</Link>
               </Button>
@@ -119,11 +116,8 @@ const NavBar = ({ selectedYear, onYearChange }) => {
               <ListItemText primary={<Link to='/info' style={defaultStyleForLink}>Info</Link>} />
             </ListItem>
             <ListItem button>
-              <ListItemText primary={<Link to='/tli' style={defaultStyleForLink}>Tli</Link>} />
-            </ListItem>
-            <ListItem button>
-              <ListItemText primary={<Link to='/tsi' style={defaultStyleForLink}>Tsi</Link>} />
-            </ListItem>
+              <ListItemText primary={<Link to='/tli-tsi' style={defaultStyleForLink}>Tli/Tsi</Link>} />
+            </ListItem>            
             <ListItem button>
               <ListItemText primary={<Link to='/calculate' style={defaultStyleForLink}>Calculator</Link>} />
             </ListItem>

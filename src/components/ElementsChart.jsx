@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 
-const ChemicCart = ({ selectedYear, selectedOption, selectedSubOption, pdkUp, pdkDown, tableField, relatedField}) => {
+const ElementsChart = ({selectedControlPointId, tableField, relatedField, selectedOption, selectedSubOption}) => {
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -10,8 +10,8 @@ const ChemicCart = ({ selectedYear, selectedOption, selectedSubOption, pdkUp, pd
       try {
         // Создаем объект данных для отправки на сервер
         const postData = {
-          year: selectedYear,
-          table_field: tableField
+            control_point_id: selectedControlPointId,
+            table_field: tableField
         };
 
         // Если выбрана подопция, добавляем соответствующие данные в объект запроса
@@ -21,7 +21,7 @@ const ChemicCart = ({ selectedYear, selectedOption, selectedSubOption, pdkUp, pd
         }
 
         // Отправляем запрос на сервер
-        const response = await fetch('http://80.72.180.130:8581/api/report/get/report', {
+        const response = await fetch('http://80.72.180.130:8581/api/report/get/point/report', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ const ChemicCart = ({ selectedYear, selectedOption, selectedSubOption, pdkUp, pd
     };
 
     fetchData(); // Вызываем функцию получения данных при изменении выбора
-  }, [selectedYear, selectedOption, selectedSubOption, tableField, relatedField]);
+  }, [selectedOption, selectedSubOption, tableField, relatedField, selectedControlPointId]);
 
 
   if (loading) {
@@ -51,10 +51,11 @@ const ChemicCart = ({ selectedYear, selectedOption, selectedSubOption, pdkUp, pd
   }
 
   if (!response) {
-    return <p>No data available</p>;
+    // return <p>No data available</p>;
+    return <p></p>;
   }
 
-  const { items, control_points } = response.data;
+  const { items, years } = response.data;
 
   const chartSeries = [
     {
@@ -71,9 +72,9 @@ const ChemicCart = ({ selectedYear, selectedOption, selectedSubOption, pdkUp, pd
       }
     },
     xaxis: {
-      categories: control_points,
+      categories: years,
       title: {
-        text: 'Control Points',
+        text: 'Years',
         style: {
           fontSize: '14px',
           fontWeight: 'bold',
@@ -96,40 +97,23 @@ const ChemicCart = ({ selectedYear, selectedOption, selectedSubOption, pdkUp, pd
         horizontal: false
       }
     },
-    // Добавление допустимых диапазонов в легенду графика
-    legend: {
-      labels: {
-        fontColor: '#000',
-        fontSize: 12,
-      },
-      onClick: null, // чтобы отключить обработчик клика на легенде
-      position: 'top',
-      display: true,
-      fullWidth: true,
-      reverse: false,
-      text: [`PDK Up: ${pdkUp}`, `PDK Down: ${pdkDown}`],
-    },
-
   };
 
-  return (
-    <div style={{width: '100%' }}>
-      <h2>График</h2>
-      <div className="chem_container">
-        <Chart type='line'  height={550} series={chartSeries} options={chartOptions} />
-      </div>
-      <div>
+
+    return (
         <div>
-          {/* <h3>(ПДК): {selectedSubOption ?
-            ((pdkUpForSubOption !== null ? pdkUpForSubOption : "Нет данных") +
-              (pdkDownForSubOption !== null ? (pdkDownForSubOption !== null ? ', ' + pdkDownForSubOption : '') : '')) :
-            ((pdkUp !== null ? pdkUp : "Нет данных") +
-              (pdkDown !== null ? (pdkDown !== null ? ', ' + pdkDown : '') : ''))}
-          </h3> */}
+            <h2>Elements Chart</h2>
+            <div>
+                <Chart
+                    options={chartOptions}
+                    series={chartSeries}
+                    type="line"
+                    width={700}
+                    height={550}
+                />
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
-export default ChemicCart;
+export default ElementsChart;
