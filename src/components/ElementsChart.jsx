@@ -108,7 +108,7 @@ const ElementsChart = ({selectedControlPointId, tableField, relatedField, select
                     options={chartOptions}
                     series={chartSeries}
                     type="line"
-                    width={700}
+                    width={"300%"}
                     height={550}
                 />
             </div>

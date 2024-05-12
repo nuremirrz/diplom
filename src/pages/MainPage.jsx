@@ -17,11 +17,8 @@ const MainPage = () => {
     setSelectedYear(year);
   };
 
-  const handleMarkerClick = (id) => {
-    // Обработка клика на маркере, например, вывод id в консоль
-    // Обновление состояния с выбранным id контрольной точки
-    setSelectedControlPointId(id);
-    console.log("Selected Control Point ID:", id);
+  const handleMarkerClick = (id) => {    
+    setSelectedControlPointId(id);    
   };
 
   const handleOptionChange = (optionId, tableField, relatedField) => {
@@ -41,16 +38,22 @@ const MainPage = () => {
         onYearChange={handleYearChange}
       />
       <Container style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', marginLeft: '0px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <MainMap onMarkerClick={handleMarkerClick} />
+        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'nowrap'}}>
+          <MainMap onMarkerClick={handleMarkerClick} 
+            selectedYear={selectedYear}
+            selectedOption={selectedOption}
+            selectedSubOption={selectedSubOption}
+            tableField={tableField}
+            relatedField={relatedField}  
+          />
           <NestedDropdown
             onYearChange={handleYearChange}
             onOptionChange={handleOptionChange}
             onSubOptionChange={handleSubOptionChange}
           />
         </div>
-        {/* <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column'}}> */}
-        <h2>Значение {selectedSubOption ? <span dangerouslySetInnerHTML={{__html: selectedSubOption.name+ ` за все года`}} /> : selectedOption ? `${selectedOption} за все года` : 'параметров за все года'}</h2>
+        <div style={{display: 'flex', justifyContent: 'end', margin: '0 auto', flexDirection: 'column'}}>
+        <h2>Значение "{selectedSubOption ? <span dangerouslySetInnerHTML={{__html: selectedSubOption.name+ `" за все года`}} /> : selectedOption ? `${selectedOption}" за все года` : 'параметров" за все года'}</h2>
         <ElementsChart
           selectedControlPointId={selectedControlPointId}
           selectedOption={selectedOption}
@@ -58,7 +61,7 @@ const MainPage = () => {
           tableField={tableField}
           relatedField={relatedField}
         />
-        {/* </div> */}
+        </div>
       </Container>
     </>
   )

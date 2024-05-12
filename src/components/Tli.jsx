@@ -45,7 +45,7 @@ const Tli = ({selectedYear, selectedDistrict }) => {
       // dashArray: [0, 8, 5 ]
     },
     title: {
-      text: 'Page Statistics',
+      text: 'Значение TLI',
       align: 'left'
     },
     legend: {
@@ -77,8 +77,8 @@ const Tli = ({selectedYear, selectedDistrict }) => {
   };
 
   return (
-    <div style={{width: '100%', height: '100%'}}>
-      <h3>Tli</h3>
+    <div style={{width: '100%', margin: '30px 0' }}>
+      {/* <h3>TLI</h3> */}
       
       <ReactApexChart options={options} series={series} type="line" height={450} />
       

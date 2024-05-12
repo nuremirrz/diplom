@@ -113,21 +113,12 @@ const ChemicCart = ({ selectedYear, selectedOption, selectedSubOption, pdkUp, pd
   };
 
   return (
-    <div style={{width: '100%' }}>
+    <div style={{width:'100%'}}>
       <h2>График</h2>
       <div className="chem_container">
         <Chart type='line'  height={550} series={chartSeries} options={chartOptions} />
       </div>
-      <div>
-        <div>
-          {/* <h3>(ПДК): {selectedSubOption ?
-            ((pdkUpForSubOption !== null ? pdkUpForSubOption : "Нет данных") +
-              (pdkDownForSubOption !== null ? (pdkDownForSubOption !== null ? ', ' + pdkDownForSubOption : '') : '')) :
-            ((pdkUp !== null ? pdkUp : "Нет данных") +
-              (pdkDown !== null ? (pdkDown !== null ? ', ' + pdkDown : '') : ''))}
-          </h3> */}
-        </div>
-      </div>
+      
     </div>
   );
 };

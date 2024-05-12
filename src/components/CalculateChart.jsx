@@ -91,7 +91,7 @@ const CalculateChart = ({ selectedYear, selectedDistrict, cost }) => {
     };
 
     return (
-        <Chart type='line' width={700} height={550} series={chartSeries} options={chartOptions} />
+        <Chart type='line' width={700} height={550} series={chartSeries} options={chartOptions} style={{display: 'flex', overflowX: 'scroll', overflowY: 'hidden' }} />
     );
 };
 

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import TransformationIndicator from './TransformationIndicator';
 import { apiEndpoints, baseURL, fullApiUrl } from '../services/apiConfig';
 
-const Info = ({selectedYear, selectedDistrict}) => {
+const Info = ({ selectedYear, selectedDistrict }) => {
   const [apiData, setApiData] = useState(null);
   const apiRoute = fullApiUrl(apiEndpoints.transformationIndicator) + `/${selectedYear}/${selectedDistrict}`
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -19,19 +19,19 @@ const Info = ({selectedYear, selectedDistrict}) => {
       }
     };
 
-  
+
     fetchData();
   }, [selectedYear, selectedDistrict]);
-  
+
   return (
     <>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
-        <TransformationIndicator  
-          apiURL={apiRoute}    
-          selectedYear={selectedYear} 
-          selectedDistrict={selectedDistrict} 
-          lakeData={apiData} /> 
-      </div>
+      <h2>Transformation Indicator Data</h2>
+      <TransformationIndicator
+        apiURL={apiRoute}
+        selectedYear={selectedYear}
+        selectedDistrict={selectedDistrict}
+        lakeData={apiData} />
+        
     </>
   );
 };

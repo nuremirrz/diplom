@@ -7,7 +7,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 const NavBar = ({ selectedYear, onYearChange }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Состояние аутентификации пользователя
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useMediaQuery('(max-width:680px)');
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -33,8 +33,9 @@ const NavBar = ({ selectedYear, onYearChange }) => {
     onYearChange(year, event); // Передаем и значение года, и объект события
   };
 
-  const years = [];
-  for (let year = 1990; year <= 2030; year++) {
+  const currentYear = new Date().getFullYear();
+  const years = ['all years'];
+  for (let year = 1990; year <= currentYear; year++) {
     years.push(year);
   }
 
@@ -85,8 +86,11 @@ const NavBar = ({ selectedYear, onYearChange }) => {
                 <Link to='/info' style={defaultStyleForLink}>Info</Link>
               </Button>
               <Button>
-                <Link to='/tli-tsi' style={defaultStyleForLink}>Tli/Tsi</Link>
-              </Button>              
+                <Link to='/tli' style={defaultStyleForLink}>TLI</Link>
+              </Button>
+              <Button>
+                <Link to='/tsi' style={defaultStyleForLink}>TSI</Link>
+              </Button>               
               <Button>
                 <Link to='/calculate' style={defaultStyleForLink}>Calculator</Link>
               </Button>
@@ -116,7 +120,10 @@ const NavBar = ({ selectedYear, onYearChange }) => {
               <ListItemText primary={<Link to='/info' style={defaultStyleForLink}>Info</Link>} />
             </ListItem>
             <ListItem button>
-              <ListItemText primary={<Link to='/tli-tsi' style={defaultStyleForLink}>Tli/Tsi</Link>} />
+              <ListItemText primary={<Link to='/tli' style={defaultStyleForLink}>TLI</Link>} />
+            </ListItem> 
+            <ListItem button>
+              <ListItemText primary={<Link to='/tsi' style={defaultStyleForLink}>TSI</Link>} />
             </ListItem>            
             <ListItem button>
               <ListItemText primary={<Link to='/calculate' style={defaultStyleForLink}>Calculator</Link>} />

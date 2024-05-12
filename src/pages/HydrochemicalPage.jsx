@@ -39,7 +39,7 @@ const HydrochemicalPage = () => {
       selectedYear={selectedYear}
       onYearChange={handleYearChange}
       />
-      <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', margin: '0 40px'}}>
         <NestedDropdown
           onYearChange={handleYearChange}
           onOptionChange={handleOptionChange}

@@ -35,7 +35,7 @@ const Header = ({ selectedYear, selectedDistrict, onYearChange, onDistrictChange
       </FormControl> */}
 
       <FormControl>
-        <InputLabel>Select District</InputLabel>
+        <InputLabel>Выберите район</InputLabel>
         <Select value={selectedDistrict} onChange={onDistrictChange}>
           {districts.map((district) => (
             <MenuItem key={district.id} value={district.id}>

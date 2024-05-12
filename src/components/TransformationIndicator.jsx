@@ -25,7 +25,7 @@ const TransformationIndicator = ({selectedYear, selectedDistrict, apiURL}) => {
   // Отображение данных в вашем компоненте
   return (
     <>
-      <h2>Transformation Indicator Data</h2>
+      
       {indicatorData ? (
         <LineChart data={indicatorData} selectedYear={selectedYear} />
       ) : (
@@ -49,7 +49,7 @@ const LineChart = ({ data, selectedYear }) => {
       }
     ],
     options: {
-      title: { text: `Changes in ${selectedYear}` },
+      title: { text: `Изменения за ${selectedYear} год` },
       colors: ['#2E93fA'],
       xaxis: {
         title: { text: 'Distance (m)' },
@@ -61,7 +61,7 @@ const LineChart = ({ data, selectedYear }) => {
     },
   };
 
-  return <Chart type='line' width={1200} height={550} series={chartData.series} options={chartData.options} />;
+  return <Chart type='line' height={550} style={{display: 'flex', justifyContent: 'center', margin: '30px'}} series={chartData.series} options={chartData.options} />;
 };
 
 export default TransformationIndicator;

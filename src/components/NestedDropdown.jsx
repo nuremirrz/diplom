@@ -45,7 +45,7 @@ const NestedDropdown = ({ onOptionChange, onSubOptionChange }) => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'start', margin: '30px', gap: '30px' }}>
+    <div style={{ display: 'flex', justifyContent: 'space-evenly', margin: '30px 0',gap: '30px' }}>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <ToggleButtonGroup
           value={selectedOption}

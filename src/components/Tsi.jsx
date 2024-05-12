@@ -45,7 +45,7 @@ const Tsi = ({selectedYear, selectedDistrict }) => {
       // dashArray: [0, 8, 5]
     },
     title: {
-      text: 'Page Statistics',
+      text: 'Значение TSI',
       align: 'left'
     },
     legend: {
@@ -77,10 +77,9 @@ const Tsi = ({selectedYear, selectedDistrict }) => {
   };
 
   return (
-    <div style={{width: '100%', height: '100%'}}>
-      <h3>Tsi</h3>
-        <ReactApexChart options={options} series={series} type="line" height={450} />
-      
+    <div style={{width: '100%', margin: '30px 0'}}>
+      {/* <h3>TSI</h3> */}
+      <ReactApexChart options={options} series={series} type="line" height={450} />      
     </div>
   );
 };

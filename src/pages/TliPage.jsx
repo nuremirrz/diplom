@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar'
 import DistAndYearChooser from '../components/DistAndYearChooser';
 import Tli from '../components/Tli';
-import Tsi from '../components/Tsi';
+import TliAverage from '../components/TliAverage';
 
-const TliTsiPage = () => {
+const TliPage = () => {
   const [selectedYear, setSelectedYear] = useState(2022);
   const [selectedDistrict, setSelectedDistrict] = useState(1);
 
@@ -20,23 +20,23 @@ const TliTsiPage = () => {
   return (
     <>
       <Navbar
-      selectedYear={selectedYear}
-      onYearChange={handleYearChange}
-      
+        selectedYear={selectedYear}
+        onYearChange={handleYearChange}
+
       />
-      <h1>TLI/TSI Page</h1>   
-      
-      <DistAndYearChooser      
+      <h1>TLI Page</h1>
+      <DistAndYearChooser
         selectedDistrict={selectedDistrict}
         onDistrictChange={handleDistrictChange}
-      />   
-      <div style={{display: 'flex', justifyContent: 'center', margin: '30px'}}>
-        <Tli 
-          selectedYear={selectedYear}   
-          selectedDistrict={selectedDistrict} 
+      />
+      <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', margin: '0 40px', gap: '30px'}}>
+        <Tli
+          selectedYear={selectedYear}
+          selectedDistrict={selectedDistrict}
         />
-        <Tsi
-        selectedYear={selectedYear}   
+        {/* <h3>Среднее значение TLI</h3> */}
+        <TliAverage
+        selectedYear={selectedYear}
         selectedDistrict={selectedDistrict}
         />
       </div>
@@ -44,4 +44,4 @@ const TliTsiPage = () => {
   )
 }
 
-export default TliTsiPage
+export default TliPage

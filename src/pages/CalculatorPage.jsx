@@ -32,7 +32,7 @@ const CalculatorPage = () => {
         selectedDistrict={selectedDistrict}
         onDistrictChange={handleDistrictChange}
       />
-      <div style={{ display: 'flex',  alignItems: 'center', justifyContent: 'center', gap: '30px'}}>
+      <div style={{ display: 'flex',  alignItems: 'center', justifyContent: 'space-evenly',  flexWrap: 'wrap', margin: '30px'}}>
         <CalculateChart 
           selectedYear={selectedYear} 
           selectedDistrict={selectedDistrict} 
