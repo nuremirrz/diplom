@@ -36,7 +36,7 @@ const DistAndYearChooser = ({ selectedYear, selectedDistrict, onYearChange, onDi
 
                 <FormControl>
                     <InputLabel>Выберите район</InputLabel>
-                    <Select value={selectedDistrict} onChange={onDistrictChange}>
+                    <Select value={selectedDistrict} onChange={onDistrictChange} style={{ border: '3px solid #00b050'}}>
                         {districts.map((district) => (
                             <MenuItem key={district.id} value={district.id}>
                                 {district.name}

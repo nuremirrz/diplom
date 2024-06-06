@@ -22,7 +22,7 @@ const Header = ({ selectedYear, selectedDistrict, onYearChange, onDistrictChange
   }, []);
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', gap: '30px', alignItems: 'center', margin: '30px' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', gap: '30px', alignItems: 'center', margin: '30px'}}>
       {/* <FormControl>
         <InputLabel>Select Year</InputLabel>
         <Select value={selectedYear} onChange={onYearChange} MenuProps={{ PaperProps: { style: { maxHeight: 300 } } }}>
@@ -36,7 +36,7 @@ const Header = ({ selectedYear, selectedDistrict, onYearChange, onDistrictChange
 
       <FormControl>
         <InputLabel>Выберите район</InputLabel>
-        <Select value={selectedDistrict} onChange={onDistrictChange}>
+        <Select value={selectedDistrict} onChange={onDistrictChange} style={{ border: '3px solid #00b050'}}>
           {districts.map((district) => (
             <MenuItem key={district.id} value={district.id}>
               {district.name}

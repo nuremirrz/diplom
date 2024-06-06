@@ -1,12 +1,13 @@
 import './App.css';
-import {Router, Routes, Route, MainPage, SignInPage, SignUpPage, TliPage, TsiPage, CalculatorPage, InfoPage, HydrochemicalPage} from './pages'
+import {Router, Routes, Route, TitlePage, MainPage, SignInPage, SignUpPage, TliPage, TsiPage, CalculatorPage, InfoPage, HydrochemicalPage} from './pages'
 
 function App() {
   return (    
       <>  
         <Router>
           <Routes>
-            <Route path="/" element={<MainPage />} />
+            <Route path="/" element={<TitlePage />} />
+            <Route path="/main" element={<MainPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/tli" element={<TliPage />} />

@@ -45,8 +45,8 @@ const NestedDropdown = ({ onOptionChange, onSubOptionChange }) => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-evenly', margin: '30px 0',gap: '30px' }}>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div style={{ display: 'flex', justifyContent: 'space-evenly', margin: '30px 0',gap: '30px'}}>
+      <div style={{ display: 'flex', flexDirection: 'column'}}>
         <ToggleButtonGroup
           value={selectedOption}
           exclusive
@@ -58,7 +58,7 @@ const NestedDropdown = ({ onOptionChange, onSubOptionChange }) => {
             <ToggleButton disabled>Loading...</ToggleButton>
           ) : (
             options.map((option) => (
-              <ToggleButton key={option.field} value={option.field} style={{ whiteSpace: 'normal' }}>
+              <ToggleButton key={option.field} value={option.field} style={{ whiteSpace: 'normal',  border: '2px solid #00b050' }}>
                 {option.field}
               </ToggleButton>
             ))
@@ -72,10 +72,10 @@ const NestedDropdown = ({ onOptionChange, onSubOptionChange }) => {
             exclusive
             onChange={handleSubOptionChange}
             aria-label="select sub-option"
-            orientation="vertical"
+            orientation="vertical"            
           >
             {subOptions.map((subOption) => (
-              <ToggleButton key={subOption.id} value={subOption.id} style={{ whiteSpace: 'normal' }}>
+              <ToggleButton key={subOption.id} value={subOption.id} style={{ whiteSpace: 'normal', border: '2px solid #00b050' }}>
                 <span dangerouslySetInnerHTML={{ __html: subOption.name }} />
               </ToggleButton>
             ))}

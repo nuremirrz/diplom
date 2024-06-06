@@ -63,7 +63,7 @@ const SvCalculator = ({onCostChange}) => {
         fullWidth
         sx={{ mb: 1 }}
       />
-      <Button onClick={calculateSv} variant="contained" fullWidth>
+      <Button onClick={calculateSv} variant="contained" color="success" fullWidth>
         Вычислить
       </Button>
       {result !== null && (

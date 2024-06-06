@@ -11,6 +11,7 @@ body {
   pointer-events: none;
 }
 
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -61,6 +62,136 @@ h1, h2, h3,h5 {
   width: 100%;
   height: 100%;  
   color: #fff;
+}
+
+.navbar{
+  height: 100px;
+  background-color: #02b887;
+  color: #fff;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+.navbar__sides{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar__left,
+.navbar__right{
+  display: flex;  
+  align-items: center; 
+  gap: 40px; 
+}
+.navbar__left_img, .navbar__right_img{
+  width: 86px;
+  height: 86px;
+}
+.navbar__left_img, .navbar__right_img,
+.navbar__left_title, .navbar__right_title{
+  cursor: pointer;
+}
+.main__title{
+  text-align: center;
+  color:#00b050;
+  font-weight: bold;
+  margin: 25px 0;
+}
+.submain__title{
+  margin: 30px 0;
+  font-weight: bold;
+  color:#00b050;
+}
+.main__map{
+  display: grid;
+  grid-template-columns: 5fr 2fr;
+  justify-content: center;
+  gap: 30px;
+  padding: 15px;
+}
+.map {
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+}
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+.button{
+  width: 100%;
+  padding: 15px 30px;
+  border: 4px solid #00b050;
+  color: #00b050;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.5s;
+  cursor: pointer;
+}
+.link-button{width: 100%}
+.button:hover{
+  background-color: #00b050;
+  color: #fff;
+}
+
+/* Modal.css */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.content {
+  position: relative;
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  z-index: 1001;
+  width: 80%;
+  max-width: 600px;
+}
+
+.close-btn {
+  position: absolute;
+  color: #00b050;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-size: 24px;
+}
+.logos{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.manas, .mpretn {
+  width: 56px;
+  height: 56px;
 }
 @keyframes App-logo-spin {
   from {

@@ -159,7 +159,7 @@ const MainMap = ({ onMarkerClick, selectedYear, selectedOption, selectedSubOptio
                 <div className="image-container" style={{backgroundImage: `url('./img/placeholder.svg')`, backgroundColor: '#000',paddingLeft: '10px'}}>Нет информации</div>
                 <div className="image-container" style={{backgroundImage: `url('./img/placeholder.svg')`, backgroundColor: '#32CD32',paddingLeft: '10px'}}>  Нормально</div>
                 <div className="image-container" style={{backgroundImage: `url('./img/placeholder.svg')`, backgroundColor: '#FFFF00',paddingLeft: '10px'}}>  Предупреждение</div>
-                <div className="image-container" style={{backgroundImage: `url('./img/placeholder.svg')`, backgroundColor: '#e61a23',paddingLeft: '10px'}}>  Опасность</div>
+                <div className="image-container" style={{backgroundImage: `url('./img/placeholder.svg')`, backgroundColor: '#ff0000',paddingLeft: '10px'}}>  Опасность</div>
             </div>
         </div>
     );

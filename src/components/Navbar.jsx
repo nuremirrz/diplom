@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { AppBar, Box, IconButton, Toolbar, Typography, Button, Drawer, List, ListItem, ListItemText, Divider, Select, MenuItem } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import ManasLogo from '../img/Manas_logo.png';
+import Mpretn from '../img/мпрэтн.png';
 
 const NavBar = ({ selectedYear, onYearChange }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -41,7 +43,7 @@ const NavBar = ({ selectedYear, onYearChange }) => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ background: '#9ed7e6', boxShadow: 'none' }}>
+      <AppBar position="static" sx={{ background: '#02b887', boxShadow: 'none' }}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -53,7 +55,12 @@ const NavBar = ({ selectedYear, onYearChange }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            <Link to='/' style={defaultStyleForLink}>AMS</Link>
+            <Link to='/' style={defaultStyleForLink}>
+              <div className="logos">
+                <img src={ManasLogo} alt="manas_logo" className="navbar__left_img manas"/>
+                <img src={Mpretn} alt="mpretn" className="navbar__right_img mpretn"/>
+              </div>
+            </Link>
           </Typography>
           {/* Добавление выпадающего списка годов */}
           <Select
@@ -83,6 +90,9 @@ const NavBar = ({ selectedYear, onYearChange }) => {
           ) : (
             <>
               <Button>
+                <Link to='/main' style={defaultStyleForLink}>Map</Link>
+              </Button>
+              <Button>
                 <Link to='/info' style={defaultStyleForLink}>Info</Link>
               </Button>
               <Button>
@@ -110,12 +120,20 @@ const NavBar = ({ selectedYear, onYearChange }) => {
       </AppBar>
 
       <Drawer anchor="left" open={mobileOpen} onClose={handleDrawerToggle}>
-        <div sx={{ width: '250px' }}>
-          <List>
-            <ListItem button>
-              <ListItemText primary={<Link to='/' style={defaultStyleForLink}>AMS</Link>} />
+        <div sx={{ width: '250px'}}>
+          <List >
+            <ListItem >
+              <ListItemText primary={<Link to='/' style={defaultStyleForLink}>
+              <div className="logos">
+                <img src={ManasLogo} alt="manas_logo" className="navbar__left_img manas"/>
+                <img src={Mpretn} alt="mpretn" className="navbar__right_img mpretn"/>
+              </div>
+              </Link>} />
             </ListItem>
             <Divider />
+            <ListItem button>
+              <ListItemText primary={<Link to='/main' style={defaultStyleForLink}>Map</Link>} />
+            </ListItem>
             <ListItem button>
               <ListItemText primary={<Link to='/info' style={defaultStyleForLink}>Info</Link>} />
             </ListItem>
